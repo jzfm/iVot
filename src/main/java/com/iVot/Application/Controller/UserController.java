@@ -1,0 +1,119 @@
+package com.iVot.Application.Controller;
+
+import com.iVot.Domain.Organization;
+import com.iVot.Utilities.InvalidParamException;
+import com.iVot.Utilities.NotFoundException;
+import com.iVot.Application.DTO.UserDTO;
+import com.iVot.Domain.User;
+import com.iVot.Persistence.User.UserRepository;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+
+import java.util.ArrayList;
+import java.util.List;
+
+@Controller
+public class UserController {
+
+    @Autowired
+    private UserRepository userRepository;
+
+    public UserDTO createUser(String name, String lastName, String email, String password, String icon)
+     throws InvalidParamException, NotFoundException {
+        User user = new User(name, lastName, email, password, icon);
+        userRepository.save(user);
+        return new UserDTO(user);
+    }
+
+    public UserDTO createUser(String name, String lastName, String email, String password, String icon,
+    Organization organization)
+            throws InvalidParamException, NotFoundException {
+        User user = new User(name, lastName, email, password, icon, organization);
+        userRepository.save(user);
+        return new UserDTO(user);
+    }
+
+    public UserDTO userLogging(String email, String password) throws InvalidParamException, NotFoundException {
+        User user = userRepository.getUserByEmail(email);
+        user.checkPasswordIsCorrect(password);
+        return new UserDTO(user);
+    }
+
+    public UserDTO getUserByEmail(String email) throws InvalidParamException, NotFoundException {
+        User user = userRepository.getUserByEmail(email);
+        return new UserDTO(user);
+    }
+
+    public UserDTO getUserById(int userId) throws NotFoundException, InvalidParamException {
+        User user = userRepository.getUserById(userId);
+        return new UserDTO(user);
+    }
+
+    public List<UserDTO> getAllUserById() throws NotFoundException {
+        List<UserDTO> userDTOList = new ArrayList<>();
+        for (User user : userRepository.getAllUsers()) {
+            UserDTO userDTO = new UserDTO(user);
+            userDTOList.add(userDTO);
+        }
+        return userDTOList;
+    }
+
+    public List<UserDTO> getAllUsersByOrganization(int organizationId) throws NotFoundException, InvalidParamException {
+        List<UserDTO> userDTOList = new ArrayList<>();
+        for (User user : userRepository.getAllUsersByOrganization(organizationId)) {
+            UserDTO userDTO = new UserDTO(user);
+            userDTOList.add(userDTO);
+        }
+        return userDTOList;
+    }
+
+    public UserDTO updateUserById(int userId, UserDTO userToUpdate) throws NotFoundException, InvalidParamException {
+        User user = userRepository.getUserById(userId);
+        if (!userToUpdate.getEmail().equals("") && userToUpdate.getEmail().contains("@")
+        && userToUpdate.getEmail().contains(".com"))
+            user.setEmail(userToUpdate.getEmail());
+        if (!userToUpdate.getName().equals(""))
+            user.setName(userToUpdate.getName());
+        if (!userToUpdate.getLastName().equals(""))
+            user.setLastName(userToUpdate.getLastName());
+        if (!userToUpdate.getPassword().equals(""))
+            user.setPassword(userToUpdate.getPassword());
+        if (!userToUpdate.getIcon().equals(""))
+            user.setIcon(userToUpdate.getIcon());
+        if (userToUpdate.getOrganization() != null)
+            user.setOrganization(userToUpdate.getOrganization());
+        userRepository.save(user);
+        return new UserDTO(user);
+    }
+
+    public UserDTO updateUserByEmail(String email, UserDTO userToUpdate) throws NotFoundException, InvalidParamException {
+        User user = userRepository.getUserByEmail(email);
+        if (!userToUpdate.getEmail().equals("") && userToUpdate.getEmail().contains("@")
+        && userToUpdate.getEmail().contains(".com"))
+            user.setEmail(userToUpdate.getEmail());
+        if (!userToUpdate.getName().equals(""))
+            user.setName(userToUpdate.getName());
+        if (!userToUpdate.getLastName().equals(""))
+            user.setLastName(userToUpdate.getLastName());
+        if (!userToUpdate.getPassword().equals(""))
+            user.setPassword(userToUpdate.getPassword());
+        if (!userToUpdate.getIcon().equals(""))
+            user.setIcon(userToUpdate.getIcon());
+        if (userToUpdate.getOrganization() != null)
+            user.setOrganization(userToUpdate.getOrganization());
+        userRepository.save(user);
+        return new UserDTO(user);
+    }
+
+    public UserDTO removeUserById(int userId) throws NotFoundException, InvalidParamException {
+        User user = userRepository.getUserById(userId);
+        userRepository.removeUser(userId);
+        return new UserDTO(user);
+    }
+
+    public UserDTO removeUserByEmail(String email) throws InvalidParamException, NotFoundException {
+        User user = userRepository.getUserByEmail(email);
+        userRepository.removeUserByEmail(email);
+        return new UserDTO(user);
+    }
+}
