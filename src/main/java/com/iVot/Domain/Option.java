@@ -16,7 +16,7 @@ public class Option {
     @JoinColumn(name = "topicId")
     private Topic topic;
 
-    public Option() {}
+    public Option(){}
 
     public Option(String description, Topic topic) throws InvalidParamException {
         if (description.equals("") || description.matches("[$&+=|<>^*-]"))

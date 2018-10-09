@@ -26,6 +26,8 @@ public class AnswerRepository {
     @Autowired
     private ParticipantRepository participantRepository;
 
+    public AnswerRepository(){}
+
     public void save(Answer answer) throws InvalidParamException {
         if (answer == null)
             throw new InvalidParamException();

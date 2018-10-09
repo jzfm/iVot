@@ -22,6 +22,8 @@ public class ParticipantRepository {
     @Autowired
     private UserRepository userRepository;
 
+    ParticipantRepository(){}
+
     public void save(Participant participant) throws InvalidParamException {
         if (participant == null)
             throw new InvalidParamException();

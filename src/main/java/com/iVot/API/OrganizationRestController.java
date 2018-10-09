@@ -3,6 +3,7 @@ package com.iVot.API;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.iVot.Application.Controller.OrganizationController;
+import com.iVot.Application.Controller.UserController;
 import com.iVot.Application.DTO.OrganizationDTO;
 import com.iVot.Utilities.InvalidParamException;
 import com.iVot.Utilities.NotFoundException;
@@ -16,7 +17,7 @@ import java.util.List;
 public class OrganizationRestController {
 
     @Autowired
-    private OrganizationController controller;
+    private OrganizationController organizationController;
 
     private String toJson(Object object){
 
@@ -29,7 +30,7 @@ public class OrganizationRestController {
 
         OrganizationDTO newOrganization = new Gson().fromJson(jOrganization, OrganizationDTO.class);
 
-        OrganizationDTO organization = controller.registerOrganization(newOrganization);
+        OrganizationDTO organization = organizationController.registerOrganization(newOrganization);
 
         return toJson(organization);
     }
@@ -37,7 +38,7 @@ public class OrganizationRestController {
     @GetMapping(value = "/organizations", produces = "application/json;charset=UTF-8")
     public String listOrganizations() throws NotFoundException {
 
-        List<OrganizationDTO> organizations = controller.listOfOrganizations();
+        List<OrganizationDTO> organizations = organizationController.listOfOrganizations();
 
         return toJson(organizations);
     }
@@ -47,7 +48,7 @@ public class OrganizationRestController {
 
         OrganizationDTO organizationToLog = new Gson().fromJson(jOrganization, OrganizationDTO.class);
 
-        OrganizationDTO organization = controller.organizationLogging(organizationToLog);
+        OrganizationDTO organization = organizationController.organizationLogging(organizationToLog);
 
         return toJson(organization);
     }
@@ -55,7 +56,7 @@ public class OrganizationRestController {
     @GetMapping(value = "/organizations/{organizationId}", produces = "application/json;charset=UTF-8")
     public String getOrganization(@PathVariable int organizationId) throws NotFoundException, InvalidParamException {
 
-        OrganizationDTO organization = controller.getOrganizationById(organizationId);
+        OrganizationDTO organization = organizationController.getOrganizationById(organizationId);
 
         return toJson(organization);
     }
@@ -66,13 +67,15 @@ public class OrganizationRestController {
 
         OrganizationDTO organizationToUpdate = new Gson().fromJson(jOrganization, OrganizationDTO.class);
 
-        OrganizationDTO organization = controller.updateOrganizationById(organizationId, organizationToUpdate);
+        OrganizationDTO organization = organizationController.updateOrganizationById(organizationId, organizationToUpdate);
 
         return toJson(organization);
     }
 
     @DeleteMapping(value="/organizations/{organizationId}",produces = "application/json;charset=UTF-8")
-    public void removeOrganization(@PathVariable int organizationId) throws Exception {
-        controller.removeOrganizationById(organizationId);
+    public String removeOrganization(@PathVariable int organizationId) throws Exception {
+
+        return toJson(organizationController.removeOrganizationById(organizationId));
+
     }
 }

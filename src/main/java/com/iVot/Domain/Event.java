@@ -29,7 +29,7 @@ public class Event {
     @JoinColumn(name = "organizationId")
     private Organization organization;
 
-    public Event() { }
+    public Event(){}
 
     public Event(String name, String description, Organization organization) throws Exception {
         if (name.equals("") || name.matches("[$&+,:;=?@#|'<>.^*()%!-]"))

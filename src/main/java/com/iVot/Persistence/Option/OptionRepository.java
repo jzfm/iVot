@@ -18,6 +18,8 @@ public class OptionRepository {
     @Autowired
     private TopicRepository topicRepository;
 
+    public OptionRepository(){}
+
     public void save(Option option) throws InvalidParamException {
         if (option == null)
             throw new InvalidParamException();

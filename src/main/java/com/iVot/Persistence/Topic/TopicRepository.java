@@ -18,6 +18,8 @@ public class TopicRepository {
     @Autowired
     private EventRepository eventRepository;
 
+    public TopicRepository(){}
+
     public void save(Topic topic) throws InvalidParamException {
         if (topic == null)
             throw new InvalidParamException();

@@ -14,6 +14,8 @@ public class OrganizationRepository {
     @Autowired
     private HelperOrganizationRepository repository;
 
+    OrganizationRepository(){}
+
     public void save (Organization organization) throws InvalidParamException {
         if (organization == null)
             throw new InvalidParamException();

@@ -61,7 +61,6 @@ public class UserDTO {
     }
 
     public Organization getOrganization() {
-        //como manejar objetos nulos?
         return organization;
     }
 }

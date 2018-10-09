@@ -18,24 +18,22 @@ public class UserController {
     @Autowired
     private UserRepository userRepository;
 
-    public UserDTO createUser(String name, String lastName, String email, String password, String icon)
-     throws InvalidParamException, NotFoundException {
-        User user = new User(name, lastName, email, password, icon);
+    public UserDTO createUser(UserDTO userDTO) throws InvalidParamException, NotFoundException {
+        User user = new User(userDTO);
         userRepository.save(user);
         return new UserDTO(user);
     }
 
-    public UserDTO createUser(String name, String lastName, String email, String password, String icon,
-    Organization organization)
+    public UserDTO createUser(UserDTO userDTO, Organization organization)
             throws InvalidParamException, NotFoundException {
-        User user = new User(name, lastName, email, password, icon, organization);
+        User user = new User(userDTO, organization);
         userRepository.save(user);
         return new UserDTO(user);
     }
 
-    public UserDTO userLogging(String email, String password) throws InvalidParamException, NotFoundException {
-        User user = userRepository.getUserByEmail(email);
-        user.checkPasswordIsCorrect(password);
+    public UserDTO userLogging(UserDTO userDTO) throws InvalidParamException, NotFoundException {
+        User user = userRepository.getUserByEmail(userDTO.getEmail());
+        user.checkPasswordIsCorrect(userDTO.getPassword());
         return new UserDTO(user);
     }
 
@@ -49,7 +47,7 @@ public class UserController {
         return new UserDTO(user);
     }
 
-    public List<UserDTO> getAllUserById() throws NotFoundException {
+    public List<UserDTO> getAllUsers() throws NotFoundException {
         List<UserDTO> userDTOList = new ArrayList<>();
         for (User user : userRepository.getAllUsers()) {
             UserDTO userDTO = new UserDTO(user);

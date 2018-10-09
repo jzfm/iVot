@@ -18,6 +18,8 @@ public class UserRepository {
     @Autowired
     private OrganizationRepository organizationRepository;
 
+    public UserRepository(){}
+
     public void save (User user) throws InvalidParamException {
         if (user == null)
             throw new InvalidParamException();

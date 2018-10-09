@@ -18,6 +18,8 @@ public class EventRepository {
     @Autowired
     private OrganizationRepository organizationRepository;
 
+    public EventRepository(){}
+
     public void save(Event event) throws InvalidParamException {
         if (event == null)
             throw new InvalidParamException();

@@ -1,5 +1,6 @@
 package com.iVot.Domain;
 
+import com.iVot.Application.DTO.UserDTO;
 import com.iVot.Utilities.Encryptor;
 import com.iVot.Utilities.InvalidParamException;
 
@@ -33,42 +34,40 @@ public class User {
 
     public User(){}
 
-    public User (String name, String lastName, String email, String password,
-    String icon) throws InvalidParamException {
-        if (email.equals("") || !email.contains("@") || !email.contains(".com"))
+    public User (UserDTO user) throws InvalidParamException {
+        if (user.getEmail().equals("") || !user.getEmail().contains("@") || !user.getEmail().contains(".com"))
             throw new InvalidParamException();
-        if(password.equals(""))
+        if(user.getPassword().equals(""))
             throw new InvalidParamException();
-        if (name.equals("") || name.matches("[$&+,:;=?@#|'<>.^*()%!-]"))
+        if (user.getName().equals("") || user.getName().matches("[$&+,:;=?@#|'<>.^*()%!-]"))
             throw new InvalidParamException();
-        if (lastName.equals("") || lastName.matches("[$&+,:;=?@#|'<>.^*()%!-]"))
+        if (user.getLastName().equals("") || user.getLastName().matches("[$&+,:;=?@#|'<>.^*()%!-]"))
             throw new InvalidParamException();
 
-        this.name = name;
-        this.lastName = lastName;
-        this.email = email;
-        this.password = password;
-        this.icon = icon;
+        this.name = user.getName();
+        this.lastName = user.getLastName();
+        this.email = user.getEmail();
+        this.password = user.getPassword();
+        this.icon = user.getIcon();
     }
 
-    public User (String name, String lastName, String email, String password, String icon,
-    Organization organization) throws InvalidParamException {
-        if (email.equals("") || !email.contains("@") || !email.contains(".com"))
+    public User (UserDTO user, Organization organization) throws InvalidParamException {
+        if (user.getEmail().equals("") || !user.getEmail().contains("@") || !user.getEmail().contains(".com"))
             throw new InvalidParamException();
-        if(password.equals(""))
+        if(user.getPassword().equals(""))
             throw new InvalidParamException();
-        if (name.equals("") || name.matches("[$&+,:;=?@#|'<>.^*()%!-]"))
+        if (user.getName().equals("") || user.getName().matches("[$&+,:;=?@#|'<>.^*()%!-]"))
             throw new InvalidParamException();
-        if (lastName.equals("") || lastName.matches("[$&+,:;=?@#|'<>.^*()%!-]"))
+        if (user.getLastName().equals("") || user.getLastName().matches("[$&+,:;=?@#|'<>.^*()%!-]"))
             throw new InvalidParamException();
-        if(organization == null)
+        if (organization == null)
             throw new InvalidParamException();
 
-        this.name = name;
-        this.lastName = lastName;
-        this.email = email;
-        this.password = password;
-        this.icon = icon;
+        this.name = user.getName();
+        this.lastName = user.getLastName();
+        this.email = user.getEmail();
+        this.password = user.getPassword();
+        this.icon = user.getIcon();
         this.organization = organization;
     }
 

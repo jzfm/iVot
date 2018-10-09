@@ -17,8 +17,7 @@ public class OrganizationController {
     private OrganizationRepository organizationRepository;
 
     public OrganizationDTO registerOrganization(OrganizationDTO organizationDTO) throws InvalidParamException, NotFoundException {
-        Organization organization = new Organization(organizationDTO.getName(), organizationDTO.getDescription(),
-        organizationDTO.getEmail(), organizationDTO.getPassword(), organizationDTO.getIcon());
+        Organization organization = new Organization(organizationDTO);
         organizationRepository.save(organization);
         return new OrganizationDTO(organization);
     }
@@ -84,9 +83,10 @@ public class OrganizationController {
         return new OrganizationDTO(organization);
     }
 
-    public void removeOrganizationById(int organizationId) throws NotFoundException, InvalidParamException {
+    public OrganizationDTO removeOrganizationById(int organizationId) throws NotFoundException, InvalidParamException {
         Organization organization = organizationRepository.getOrganizationById(organizationId);
         organizationRepository.removeOrganization(organizationId);
+        return new OrganizationDTO(organization);
     }
 
     public OrganizationDTO removeOrganizationByEmail(String email) throws InvalidParamException, NotFoundException {

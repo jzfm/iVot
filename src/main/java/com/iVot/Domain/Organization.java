@@ -1,5 +1,6 @@
 package com.iVot.Domain;
 
+import com.iVot.Application.DTO.OrganizationDTO;
 import com.iVot.Utilities.Encryptor;
 import com.iVot.Utilities.InvalidParamException;
 
@@ -26,26 +27,23 @@ public class Organization {
     @Column(name = "description")
     private String description;
 
+    public Organization(){}
 
-    public Organization() { }
-
-    public Organization (String name, String email, String password,
-    String icon, String description) throws InvalidParamException {
-        if (email.equals("") || !email.matches("@"))
+    public Organization (OrganizationDTO organization) throws InvalidParamException {
+        if (organization.getEmail().equals("") || !organization.getEmail().matches("@"))
             throw new InvalidParamException();
-        if(password.equals(""))
+        if(organization.getPassword().equals(""))
             throw new InvalidParamException();
-        if (name.equals("") || name.matches("[$&+,:;=?@#|'<>.^*()%!-]"))
+        if (organization.getName().equals("") || organization.getName().matches("[$&+,:;=?@#|'<>.^*()%!-]"))
             throw new InvalidParamException();
-        if (description.equals("") || description.matches("[$&+,:;=?@#|'<>.^*()%!-]"))
+        if (organization.getDescription().equals("") || organization.getDescription().matches("[$&+,:;=?@#|'<>.^*()%!-]"))
             throw new InvalidParamException();
 
-        this.name = name;
-        this.description = description;
-        this.email = email;
-        this.password = password;
-        this.icon = icon;
-        this.description = description;
+        this.name = organization.getName();
+        this.description = organization.getDescription();
+        this.email = organization.getEmail();
+        this.password = organization.getPassword();
+        this.icon = organization.getIcon();
     }
 
     public void checkPasswordIsCorrect(String password) throws InvalidParamException {
