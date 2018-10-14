@@ -23,7 +23,7 @@ public class ParticipantRepository {
     private UserRepository userRepository;
 
     ParticipantRepository(){}
-
+    //They can invite the same user to the same event multiple times, this will break the app, look for a solution.
     public void save(Participant participant) throws InvalidParamException {
         if (participant == null)
             throw new InvalidParamException();
@@ -54,10 +54,10 @@ public class ParticipantRepository {
         }
     }
 
-    public List<Participant> getAllParticipantByEventId(int eventId) throws InvalidParamException, NotFoundException {
+    public List<Participant> getAllParticipantByEventId(int eventId, int organizationId) throws InvalidParamException, NotFoundException {
         if (eventId <= 0)
             throw new InvalidParamException();
-        if (eventRepository.eventExistById(eventId)){
+        if (eventRepository.getEventByIdAndOrganizationId(eventId, organizationId).getId() == eventId){
             return repository.findAllByEventId(eventId);
         }else{
             throw new NotFoundException();
@@ -85,7 +85,16 @@ public class ParticipantRepository {
         }
     }
 
-    public List<Participant> getParticipantByUserId(int userId) throws InvalidParamException, NotFoundException {
+    public Participant getParticipantByUserIdAndEventId(int userId, int eventId) throws InvalidParamException, NotFoundException {
+        if (userId <= 0 || eventId <= 0)
+            throw new InvalidParamException();
+        if (userRepository.userExistById(userId) && eventRepository.eventExistById(eventId))
+            return repository.findByUserIdAndEventId(userId, eventId);
+        else
+            throw new NotFoundException();
+    }
+
+    public List<Participant> getAllParticipantByUserId(int userId) throws InvalidParamException, NotFoundException {
         if (userId <= 0)
             throw new InvalidParamException();
         if (userRepository.userExistById(userId)){

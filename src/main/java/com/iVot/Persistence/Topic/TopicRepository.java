@@ -1,6 +1,7 @@
 package com.iVot.Persistence.Topic;
 
 import com.iVot.Domain.Topic;
+import com.iVot.Persistence.Organization.OrganizationRepository;
 import com.iVot.Utilities.InvalidParamException;
 import com.iVot.Utilities.NotFoundException;
 import com.iVot.Persistence.Event.EventRepository;
@@ -56,8 +57,18 @@ public class TopicRepository {
         repository.deleteAllByEventId(eventId);
     }
 
-    public List<Topic> getAllTopicByEventId(int eventId) {
-        return repository.findAllByEventId(eventId);
+    public List<Topic> getAllTopicByEventIdAndOrganizationId(int eventId, int organizationId) throws InvalidParamException, NotFoundException {
+        if (eventRepository.getEventByIdAndOrganizationId(eventId, organizationId).getId() == eventId)
+            return repository.findAllByEventId(eventId);
+        else
+            throw new InvalidParamException();
+    }
+
+    public List<Topic> getAllTopicByEventId(int eventId) throws InvalidParamException, NotFoundException {
+        if (eventId <= 0)
+            throw new InvalidParamException();
+        else
+            return repository.findAllByEventId(eventId);
     }
 
     public Topic getTopicById(int topicId) throws NotFoundException, InvalidParamException {
@@ -70,8 +81,17 @@ public class TopicRepository {
         }
     }
 
-    public Topic getTopicByIdAndEventId(int topicId, int eventId)
-            throws InvalidParamException, NotFoundException {
+    public Topic getTopicByIdAndEventIdAndOrganizationId(int topicId, int eventId, int organizationId) throws InvalidParamException, NotFoundException {
+        if (eventId <= 0 || topicId <= 0 || organizationId <= 0)
+            throw new InvalidParamException();
+        if (repository.existsById(topicId) && eventRepository.getEventByIdAndOrganizationId(eventId, organizationId).getId() == eventId) {
+            return repository.findByIdAndEventId(topicId, eventId);
+        } else {
+            throw new NotFoundException();
+        }
+    }
+
+    public Topic getTopicByIdAndEventId(int topicId, int eventId) throws InvalidParamException, NotFoundException {
         if (eventId <= 0 || topicId <= 0)
             throw new InvalidParamException();
         if (repository.existsById(topicId) && eventRepository.eventExistById(eventId)) {

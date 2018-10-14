@@ -22,6 +22,8 @@ public class AnswerDTO {
     private Topic topic;
     @Expose
     private Option option;
+    @Expose
+    private String participantName, participantEmail, participantOrganization;
 
     public AnswerDTO(Answer answer) throws InvalidParamException {
         if (answer == null)
@@ -34,6 +36,9 @@ public class AnswerDTO {
         this.participant = answer.getParticipant();
         this.topic = answer.getTopic();
         this.option = answer.getOption();
+        this.participantName = participant.getUser().getName();
+        this.participantEmail = participant.getUser().getEmail();
+        this.participantOrganization = participant.getUser().getOrganization().getName();
     }
 
     public Integer getId() {

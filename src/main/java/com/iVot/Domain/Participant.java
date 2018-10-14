@@ -23,7 +23,7 @@ public class Participant {
 
     public Participant(){}
 
-    public Participant(User user, Event event, int assignedVotes, boolean tf) throws InvalidParamException {
+    public Participant(User user, Event event, int assignedVotes, boolean representation) throws InvalidParamException {
         if (user == null)
             throw new InvalidParamException();
         if (event == null)
@@ -33,7 +33,7 @@ public class Participant {
         this.user = user;
         this.event = event;
         this.assignedVotes = assignedVotes;
-        this.representation = tf;
+        this.representation = representation;
     }
 
     public Integer getId() {

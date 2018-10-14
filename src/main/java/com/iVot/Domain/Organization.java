@@ -26,6 +26,8 @@ public class Organization {
     private String icon;
     @Column(name = "description")
     private String description;
+    @Column(name = "address")
+    private String address;
 
     public Organization(){}
 

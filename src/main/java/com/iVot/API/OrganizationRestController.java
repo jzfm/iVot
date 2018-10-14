@@ -3,7 +3,6 @@ package com.iVot.API;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.iVot.Application.Controller.OrganizationController;
-import com.iVot.Application.Controller.UserController;
 import com.iVot.Application.DTO.OrganizationDTO;
 import com.iVot.Utilities.InvalidParamException;
 import com.iVot.Utilities.NotFoundException;
@@ -43,7 +42,7 @@ public class OrganizationRestController {
         return toJson(organizations);
     }
 
-    @PostMapping(value = "/login", produces = "application/json;charset=UTF-8")
+    @PostMapping(value = "organizations/login", produces = "application/json;charset=UTF-8")
     public String login(@RequestBody String jOrganization) throws NotFoundException, InvalidParamException {
 
         OrganizationDTO organizationToLog = new Gson().fromJson(jOrganization, OrganizationDTO.class);

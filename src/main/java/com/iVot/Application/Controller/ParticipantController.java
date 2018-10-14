@@ -27,9 +27,9 @@ public class ParticipantController {
     @Autowired
     EventRepository eventRepository;
 
-    public ParticipantDTO createParticipant(int assignedVotes, boolean representation, int userId, int eventId) throws InvalidParamException, NotFoundException {
-        User user = userRepository.getUserById(userId);
-        Event event = eventRepository.getEventById(eventId);
+    public ParticipantDTO createParticipant(String userEmail, int eventId, int assignedVotes, boolean representation, int organizationId) throws InvalidParamException, NotFoundException {
+        User user = userRepository.getUserByEmail(userEmail);
+        Event event = eventRepository.getEventByIdAndOrganizationId(eventId, organizationId);
         Participant participant = new Participant(user, event, assignedVotes, representation);
         participantRepository.save(participant);
         //TODO send an email to the participant when is created.
@@ -42,9 +42,9 @@ public class ParticipantController {
         return  new ParticipantDTO(participant);
     }
 
-    public List<ParticipantDTO> getAllParticipantsByEventId(int eventId) throws NotFoundException, InvalidParamException {
+    public List<ParticipantDTO> getAllParticipantsByEventId(int eventId, int organizationId) throws NotFoundException, InvalidParamException {
         List<ParticipantDTO> participantDTOList= new ArrayList<>();
-        for (Participant participant : participantRepository.getAllParticipantByEventId(eventId)) {
+        for (Participant participant : participantRepository.getAllParticipantByEventId(eventId, organizationId)) {
             ParticipantDTO participantDTO = new ParticipantDTO(participant);
             participantDTOList.add(participantDTO);
         }
@@ -57,9 +57,9 @@ public class ParticipantController {
         return new ParticipantDTO(participant);
     }
 
-    public List<ParticipantDTO> removeAllParticipantsByEventId(int eventId) throws NotFoundException, InvalidParamException {
+    public List<ParticipantDTO> removeAllParticipantsByEventId(int eventId, int organizationId) throws NotFoundException, InvalidParamException {
         List<ParticipantDTO> participantDTOList = new ArrayList<>();
-        for (Participant participant : participantRepository.getAllParticipantByEventId(eventId)) {
+        for (Participant participant : participantRepository.getAllParticipantByEventId(eventId, organizationId)) {
             ParticipantDTO participantDTO = new ParticipantDTO(participant);
             participantDTOList.add(participantDTO);
         }
@@ -69,7 +69,7 @@ public class ParticipantController {
 
     public List<ParticipantDTO> getAllParticipantByUser(int userId) throws InvalidParamException, NotFoundException {
         List<ParticipantDTO> participantDTOList = new ArrayList<>();
-        for (Participant participant : participantRepository.getParticipantByUserId(userId)) {
+        for (Participant participant : participantRepository.getAllParticipantByUserId(userId)) {
             ParticipantDTO participantDTO = new ParticipantDTO(participant);
             participantDTOList.add(participantDTO);
         }

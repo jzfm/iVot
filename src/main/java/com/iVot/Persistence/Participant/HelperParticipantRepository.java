@@ -18,5 +18,8 @@ public interface HelperParticipantRepository extends CrudRepository<Participant,
     List<Participant> findAllByUserId(int userId);
 
     @Transactional
+    Participant findByUserIdAndEventId(int userId, int eventId);
+
+    @Transactional
     void deleteAllByEventId(int eventId);
 }

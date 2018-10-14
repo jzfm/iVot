@@ -30,11 +30,9 @@ public class Answer {
 
     public Answer(){}
 
-    public Answer(String comment, Organization organization, Event event, Participant participant,
+    public Answer(String comment, Event event, Participant participant,
     Topic topic, Option option) throws InvalidParamException {
         if (comment.equals("") || comment.matches("[$&+=|<>^*-]"))
-            throw new InvalidParamException();
-        if (organization == null)
             throw new InvalidParamException();
         if (event == null)
             throw new InvalidParamException();
@@ -46,7 +44,7 @@ public class Answer {
             throw new InvalidParamException();
 
         this.comment = comment;
-        this.organization = organization;
+        this.organization = event.getOrganization();
         this.event = event;
         this.participant = participant;
         this.topic = topic;

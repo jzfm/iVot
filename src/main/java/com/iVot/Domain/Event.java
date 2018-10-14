@@ -1,5 +1,6 @@
 package com.iVot.Domain;
 
+import com.iVot.Application.DTO.EventDTO;
 import com.iVot.Utilities.InvalidParamException;
 
 import javax.persistence.*;
@@ -31,16 +32,16 @@ public class Event {
 
     public Event(){}
 
-    public Event(String name, String description, Organization organization) throws Exception {
-        if (name.equals("") || name.matches("[$&+,:;=?@#|'<>.^*()%!-]"))
+    public Event(EventDTO event, Organization organization)  throws InvalidParamException{
+        if (event.getName().equals("") || event.getName().matches("[$&+,:;=?@#|'<>.^*()%!-]"))
             throw new InvalidParamException();
-        if (description.equals("") || description.matches("[$&+,:;=?@#|'<>.^*()%!-]"))
+        if (event.getDescription().equals("") || event.getDescription().matches("[$&+,:;=?@#|'<>.^*()%!-]"))
             throw new InvalidParamException();
         if (organization == null)
             throw new InvalidParamException();
 
-        this.name = name;
-        this.description = description;
+        this.name = event.getName();
+        this.description = event.getDescription();
         this.icon = "";
         this.pdfFile= "";
         this.date = Calendar.getInstance();

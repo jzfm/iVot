@@ -1,6 +1,7 @@
 package com.iVot.Application.Controller;
 
 import com.iVot.Domain.Organization;
+import com.iVot.Persistence.Organization.OrganizationRepository;
 import com.iVot.Utilities.InvalidParamException;
 import com.iVot.Utilities.NotFoundException;
 import com.iVot.Application.DTO.UserDTO;
@@ -18,14 +19,17 @@ public class UserController {
     @Autowired
     private UserRepository userRepository;
 
+    @Autowired
+    private OrganizationRepository organizationRepository;
+
     public UserDTO createUser(UserDTO userDTO) throws InvalidParamException, NotFoundException {
         User user = new User(userDTO);
         userRepository.save(user);
         return new UserDTO(user);
     }
 
-    public UserDTO createUser(UserDTO userDTO, Organization organization)
-            throws InvalidParamException, NotFoundException {
+    public UserDTO createUser(UserDTO userDTO, int organizationId) throws InvalidParamException, NotFoundException {
+        Organization organization = organizationRepository.getOrganizationById(organizationId);
         User user = new User(userDTO, organization);
         userRepository.save(user);
         return new UserDTO(user);
@@ -68,7 +72,7 @@ public class UserController {
     public UserDTO updateUserById(int userId, UserDTO userToUpdate) throws NotFoundException, InvalidParamException {
         User user = userRepository.getUserById(userId);
         if (!userToUpdate.getEmail().equals("") && userToUpdate.getEmail().contains("@")
-        && userToUpdate.getEmail().contains(".com"))
+                && userToUpdate.getEmail().contains(".com"))
             user.setEmail(userToUpdate.getEmail());
         if (!userToUpdate.getName().equals(""))
             user.setName(userToUpdate.getName());
@@ -87,7 +91,7 @@ public class UserController {
     public UserDTO updateUserByEmail(String email, UserDTO userToUpdate) throws NotFoundException, InvalidParamException {
         User user = userRepository.getUserByEmail(email);
         if (!userToUpdate.getEmail().equals("") && userToUpdate.getEmail().contains("@")
-        && userToUpdate.getEmail().contains(".com"))
+                && userToUpdate.getEmail().contains(".com"))
             user.setEmail(userToUpdate.getEmail());
         if (!userToUpdate.getName().equals(""))
             user.setName(userToUpdate.getName());
