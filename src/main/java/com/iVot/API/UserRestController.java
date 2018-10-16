@@ -2,6 +2,7 @@ package com.iVot.API;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import com.iVot.Application.Controller.ParticipantController;
 import com.iVot.Application.Controller.UserController;
 import com.iVot.Application.DTO.UserDTO;
 import com.iVot.Utilities.InvalidParamException;
@@ -17,6 +18,9 @@ public class UserRestController {
 
     @Autowired
     private UserController userController;
+
+    @Autowired
+    private ParticipantController participantController;
 
     private String toJson(Object object){
 

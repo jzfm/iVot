@@ -1,9 +1,8 @@
 package com.iVot.Application.Controller;
 
-import com.iVot.Domain.Event;
-import com.iVot.Domain.Option;
-import com.iVot.Domain.Organization;
-import com.iVot.Domain.Topic;
+import com.iVot.Domain.*;
+import com.iVot.Persistence.Organization.OrganizationRepository;
+import com.iVot.Persistence.Participant.ParticipantRepository;
 import com.iVot.Utilities.InvalidParamException;
 import com.iVot.Application.DTO.EventDTO;
 import com.iVot.Application.DTO.OptionDTO;
@@ -30,8 +29,15 @@ public class EventController {
     @Autowired
     OptionRepository optionRepository;
 
-    public EventDTO createEvent(String name, String description, String icon, String pdfFile, Organization organization) throws Exception {
-        Event event = new Event(name, description, organization);
+    @Autowired
+    ParticipantRepository participantRepository;
+
+    @Autowired
+    OrganizationRepository organizationRepository;
+
+    public EventDTO createEvent(EventDTO eventDTO, int organizationId) throws InvalidParamException, NotFoundException {
+        Organization organization = organizationRepository.getOrganizationById(organizationId);
+        Event event = new Event(eventDTO, organization);
         eventRepository.save(event);
         return new EventDTO(event);
     }
@@ -43,6 +49,15 @@ public class EventController {
             eventDTOList.add(eventDTO);
         }
         return eventDTOList;
+    }
+
+    public List<EventDTO> getAllEventsByUser(int userId) throws InvalidParamException, NotFoundException {
+        List<EventDTO> eventDTOSList = new ArrayList<>();
+        for (Participant participant : participantRepository.getParticipantByUserId(userId)) {
+            EventDTO eventDTO = new EventDTO(participant.getEvent());
+            eventDTOSList.add(eventDTO);
+        }
+        return eventDTOSList;
     }
 
     public EventDTO getEventById(int eventId) throws NotFoundException, InvalidParamException {
@@ -79,28 +94,30 @@ public class EventController {
         return new EventDTO(event);
     }
 
-    public EventDTO postEvent(int eventId, int organizationId, EventDTO eventToPost) throws InvalidParamException, NotFoundException {
+    public EventDTO postEvent(int eventId, int organizationId) throws InvalidParamException, NotFoundException {
         Event event = eventRepository.getEventByIdAndOrganizationId(eventId, organizationId);
-        if (eventToPost.isPost())
-            event.setPost(eventToPost.isPost());
+        if (!event.isPost())
+            event.setPost(true);
+        else
+            throw new InvalidParamException();
         eventRepository.save(event);
         return new EventDTO(event);
     }
 
-    public EventDTO closeEvent(int eventId, int organizationId, String pdfFile, EventDTO eventToClose) throws InvalidParamException, NotFoundException {
+    public EventDTO closeEvent(int eventId, int organizationId) throws InvalidParamException, NotFoundException {
         Event event = eventRepository.getEventByIdAndOrganizationId(eventId, organizationId);
-        if (eventToClose.isClose())
-            event.setClose(eventToClose.isClose());
-        if (!eventToClose.getPdfFile().equals(""))
-            event.setPdfFile(pdfFile);
+        if (!event.isClose())
+            event.setClose(true);
+        else
+            throw new InvalidParamException();
         eventRepository.save(event);
         return new EventDTO(event);
     }
 
-    public EventDTO uploadPdfFile(int eventId, int organizationId, String pdfFile, EventDTO eventToUpdate) throws InvalidParamException, NotFoundException {
+    public EventDTO uploadPdfFile(int eventId, int organizationId, EventDTO eventToUpdate) throws InvalidParamException, NotFoundException {
         Event event = eventRepository.getEventByIdAndOrganizationId(eventId, organizationId);
         if (!eventToUpdate.getPdfFile().equals(""))
-            event.setPdfFile(pdfFile);
+            event.setPdfFile(eventToUpdate.getPdfFile());
         eventRepository.save(event);
         return new EventDTO(event);
     }
