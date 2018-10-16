@@ -1,6 +1,7 @@
 package com.iVot.Persistence.Option;
 
 import com.iVot.Domain.Option;
+import com.iVot.Persistence.Event.EventRepository;
 import com.iVot.Utilities.InvalidParamException;
 import com.iVot.Utilities.NotFoundException;
 import com.iVot.Persistence.Topic.TopicRepository;
@@ -17,6 +18,9 @@ public class OptionRepository {
 
     @Autowired
     private TopicRepository topicRepository;
+
+    @Autowired
+    private EventRepository eventRepository;
 
     public OptionRepository(){}
 
@@ -70,6 +74,15 @@ public class OptionRepository {
         }
     }
 
+    public List<Option> getAllOptionByTopicIdAndOrganization(int topicId, int eventId, int organizationId) throws InvalidParamException, NotFoundException {
+        if (topicId <= 0)
+            throw new InvalidParamException();
+        if (eventRepository.getEventByIdAndOrganizationId(eventId, organizationId).getId() == topicRepository.getTopicById(topicId).getEvent().getId())
+            return repository.findAllByTopicId(topicId);
+        else
+            throw new NotFoundException();
+    }
+
     public Option getOptionById(int optionId) throws NotFoundException, InvalidParamException {
         if (optionId <= 0)
             throw new InvalidParamException();
@@ -80,11 +93,11 @@ public class OptionRepository {
         }
     }
 
-    public Option getOptionByIdAndTopicId(int optionId, int topicId)
+    public Option getOptionByIdAndTopicId(int optionId, int topicId, int eventId, int organization)
             throws InvalidParamException, NotFoundException {
         if (optionId <= 0 || topicId <= 0)
             throw new InvalidParamException();
-        if (repository.existsById(topicId) && topicRepository.topicExistById(topicId)) {
+        if (eventRepository.getEventByIdAndOrganizationId(eventId, organization).getId().equals(topicRepository.getTopicById(topicId).getEvent().getId())) {
             return repository.findByIdAndTopicId(topicId, optionId);
         } else {
             throw new NotFoundException();

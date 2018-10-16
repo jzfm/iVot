@@ -4,7 +4,6 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.iVot.Application.Controller.EventController;
 import com.iVot.Application.DTO.EventDTO;
-import com.iVot.Domain.Event;
 import com.iVot.Utilities.InvalidParamException;
 import com.iVot.Utilities.NotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -82,8 +81,24 @@ public class EventRestController {
 
         EventDTO eventToUpdatePdf = new Gson().fromJson(jEvent, EventDTO.class);
 
-        EventDTO eventToClose = eventController.closeEvent(eventId, organizationId);
+        EventDTO event = eventController.uploadPdfFile(eventId, organizationId, eventToUpdatePdf);
 
-        return toJson(eventToClose);
+        return toJson(event);
+    }
+
+    @DeleteMapping(value = "/organizations/{organizationId}/events/{eventId}", produces = "application/json;charset=UTF-8")
+    public String deleteEvent(@PathVariable int eventId, @PathVariable int organizationId) throws InvalidParamException, NotFoundException {
+
+        EventDTO eventToDelete = eventController.removeEventByIdAndOrganizationId(eventId, organizationId);
+
+        return toJson(eventToDelete);
+    }
+
+    @GetMapping(value = "/users/{userId}/events", produces = "application/json;charset=UTF-8")
+    public String getAllEventsByUser(@PathVariable int userId) throws InvalidParamException, NotFoundException {
+
+        List<EventDTO> eventList = eventController.getAllEventsByUser(userId);
+
+        return toJson(eventList);
     }
 }

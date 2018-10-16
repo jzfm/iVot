@@ -1,6 +1,10 @@
 package com.iVot.Application.Controller;
 
 import com.iVot.Domain.*;
+import com.iVot.Persistence.Option.OptionRepository;
+import com.iVot.Persistence.Participant.ParticipantRepository;
+import com.iVot.Utilities.AlreadyVoteException;
+import com.iVot.Utilities.EventIsNotAvailableException;
 import com.iVot.Utilities.InvalidParamException;
 import com.iVot.Utilities.NotFoundException;
 import com.iVot.Application.DTO.AnswerDTO;
@@ -21,15 +25,28 @@ public class AnswerController {
     @Autowired
     TopicRepository topicRepository;
 
-    public AnswerDTO createAnswer(String comment, Organization organization, Event event, Participant participant,
-                                  Topic topic, Option option) throws Exception {
-        if (!participant.getEvent().getId().equals(event.getId()))
-            throw new InvalidParamException();
-        if (!answerRepository.existByTopicIdAndParticipantId(topic.getId(), participant.getId())) {
-            Answer answer = new Answer(comment, organization, event, participant, topic, option);
-            return new AnswerDTO(answer);
+    @Autowired
+    ParticipantRepository participantRepository;
+
+    @Autowired
+    OptionRepository optionRepository;
+
+    public AnswerDTO createAnswer(String comment, int eventId, int topicId, int optionId, int userId) throws AlreadyVoteException, InvalidParamException, NotFoundException, EventIsNotAvailableException {
+        Participant participant = participantRepository.getParticipantByUserIdAndEventId(userId, eventId);
+        Event event = participant.getEvent();
+        if (event.isPost() && !event.isClose()) {
+            Topic topic = topicRepository.getTopicByIdAndEventId(topicId, eventId);
+            Option option = optionRepository.getOptionById(optionId);
+            if (!participant.getEvent().getId().equals(event.getId()))
+                throw new InvalidParamException();
+            if (!answerRepository.existByTopicIdAndParticipantId(topic.getId(), participant.getId())) {
+                Answer answer = new Answer(comment, event, participant, topic, option);
+                return new AnswerDTO(answer);
+            } else {
+                throw new AlreadyVoteException();
+            }
         }else{
-            throw new Exception();//TODO custom exception for 'you already vote in this topic' message
+            throw new EventIsNotAvailableException();
         }
     }
 
@@ -40,6 +57,19 @@ public class AnswerController {
             answerDTOList.add(answerDTO);
         }
         return answerDTOList;
+    }
+
+    public List<String> votesResults(int topicId, int eventId, int organizationId) throws InvalidParamException, NotFoundException {
+        List<String> votesCount = new ArrayList<>();
+        Integer voteSum = 0;
+        for (Option option : optionRepository.getAllOptionByTopicIdAndOrganization(topicId, eventId, organizationId)){
+            for (Answer answer : answerRepository.getAllAnswerByOptionId(option.getId())) {
+                voteSum = answer.getParticipant().getAssignedVotes() + voteSum;
+            }
+            votesCount.add(option.getDescription() + ":" + voteSum.toString());
+            voteSum = 0;
+        }
+        return votesCount;
     }
 
     public AnswerDTO getAnswerByIdAndParticipantId(int answerId, int participantId) throws InvalidParamException, NotFoundException {

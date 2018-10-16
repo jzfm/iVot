@@ -72,7 +72,7 @@ public class UserController {
     public UserDTO updateUserById(int userId, UserDTO userToUpdate) throws NotFoundException, InvalidParamException {
         User user = userRepository.getUserById(userId);
         if (!userToUpdate.getEmail().equals("") && userToUpdate.getEmail().contains("@")
-        && userToUpdate.getEmail().contains(".com"))
+                && userToUpdate.getEmail().contains(".com"))
             user.setEmail(userToUpdate.getEmail());
         if (!userToUpdate.getName().equals(""))
             user.setName(userToUpdate.getName());
@@ -91,7 +91,7 @@ public class UserController {
     public UserDTO updateUserByEmail(String email, UserDTO userToUpdate) throws NotFoundException, InvalidParamException {
         User user = userRepository.getUserByEmail(email);
         if (!userToUpdate.getEmail().equals("") && userToUpdate.getEmail().contains("@")
-        && userToUpdate.getEmail().contains(".com"))
+                && userToUpdate.getEmail().contains(".com"))
             user.setEmail(userToUpdate.getEmail());
         if (!userToUpdate.getName().equals(""))
             user.setName(userToUpdate.getName());

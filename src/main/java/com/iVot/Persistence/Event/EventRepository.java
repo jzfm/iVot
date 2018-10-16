@@ -80,8 +80,7 @@ public class EventRepository {
         }
     }
 
-    public Event getEventByIdAndOrganizationId(int eventId, int organizationId)
-            throws InvalidParamException, NotFoundException {
+    public Event getEventByIdAndOrganizationId(int eventId, int organizationId) throws InvalidParamException, NotFoundException {
         if (eventId <= 0 || organizationId <= 0)
             throw new InvalidParamException();
         if (repository.existsById(eventId) && organizationRepository.organizationExistById(organizationId)) {
