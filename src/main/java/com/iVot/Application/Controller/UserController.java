@@ -21,13 +21,13 @@ public class UserController {
 
     @Autowired
     private OrganizationRepository organizationRepository;
-
+/*
     public UserDTO createUser(UserDTO userDTO) throws InvalidParamException, NotFoundException {
         User user = new User(userDTO);
         userRepository.save(user);
         return new UserDTO(user);
     }
-
+*/
     public UserDTO createUser(UserDTO userDTO, int organizationId) throws InvalidParamException, NotFoundException {
         Organization organization = organizationRepository.getOrganizationById(organizationId);
         User user = new User(userDTO, organization);

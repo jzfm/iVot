@@ -12,6 +12,10 @@ public class UserDTO {
     private String name, lastName, email, icon;
     private String password;
     private Organization organization;
+    @Expose
+    private int organizationId;
+    @Expose
+    private String organizationName;
 
     public UserDTO(User user) throws NotFoundException {
         if (user == null)
@@ -24,6 +28,8 @@ public class UserDTO {
         this.password = user.getPassword();
         this.id = user.getId();
         this.organization = user.getOrganization();
+        this.organizationId = user.getOrganization().getId();
+        this.organizationName = user.getOrganization().getName();
     }
 
     public int getId() {
@@ -58,6 +64,14 @@ public class UserDTO {
         if (icon == null)
             return "";
         return icon;
+    }
+
+    public int getOrganizationId() {
+        return organizationId;
+    }
+
+    public String getOrganizationName() {
+        return organizationName;
     }
 
     public Organization getOrganization() {

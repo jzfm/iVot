@@ -1,4 +1,4 @@
-package com.iVot.Application.DTO;
+/*package com.iVot.Application.DTO;
 
 import com.google.gson.annotations.Expose;
 import com.iVot.Domain.Option;
@@ -37,3 +37,4 @@ public class OptionDTO {
         return topic;
     }
 }
+*/

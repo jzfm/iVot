@@ -1,4 +1,4 @@
-package com.iVot.Domain;
+/*package com.iVot.Domain;
 
 import com.iVot.Utilities.InvalidParamException;
 
@@ -16,7 +16,7 @@ public class Answer {
     @JoinColumn(name = "organization")
     private Organization organization;
     @ManyToOne(targetEntity = Event.class)
-    @JoinColumn(name = "even")
+    @JoinColumn(name = "event")
     private Event event;
     @ManyToOne(targetEntity = Participant.class)
     @JoinColumn(name = "participant")
@@ -44,7 +44,7 @@ public class Answer {
             throw new InvalidParamException();
 
         this.comment = comment;
-        this.organization = event.getOrganization();
+        //this.organization = event.getOrganization();
         this.event = event;
         this.participant = participant;
         this.topic = topic;
@@ -107,3 +107,4 @@ public class Answer {
         this.option = option;
     }
 }
+*/

@@ -26,13 +26,13 @@ public class Organization {
     private String icon;
     @Column(name = "description")
     private String description;
-    @Column(name = "address")
-    private String address;
+   /* @Column(name = "address")
+    private String address;*/
 
     public Organization(){}
 
     public Organization (OrganizationDTO organization) throws InvalidParamException {
-        if (organization.getEmail().equals("") || !organization.getEmail().matches("@"))
+        if (organization.getEmail().equals("") || !organization.getEmail().contains("@"))
             throw new InvalidParamException();
         if(organization.getPassword().equals(""))
             throw new InvalidParamException();

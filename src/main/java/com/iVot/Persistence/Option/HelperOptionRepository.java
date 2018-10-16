@@ -1,4 +1,4 @@
-package com.iVot.Persistence.Option;
+/*package com.iVot.Persistence.Option;
 
 import com.iVot.Domain.Option;
 import org.springframework.data.repository.CrudRepository;
@@ -19,3 +19,4 @@ public interface HelperOptionRepository extends CrudRepository<Option, Integer> 
     @Transactional
     void deleteAllByTopicId(int topicId);
 }
+*/

@@ -1,4 +1,4 @@
-package com.iVot.API;
+/*package com.iVot.API;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -45,3 +45,4 @@ public class AnswerRestController {
         return toJson(voteResults);
     }
 }
+*/

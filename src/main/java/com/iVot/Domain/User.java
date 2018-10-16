@@ -33,7 +33,7 @@ public class User {
     private Organization organization;
 
     public User(){}
-
+/*
     public User (UserDTO user) throws InvalidParamException {
         if (user.getEmail().equals("") || !user.getEmail().contains("@") || !user.getEmail().contains(".com"))
             throw new InvalidParamException();
@@ -50,7 +50,7 @@ public class User {
         this.password = user.getPassword();
         this.icon = user.getIcon();
     }
-
+*/
     public User (UserDTO user, Organization organization) throws InvalidParamException {
         if (user.getEmail().equals("") || !user.getEmail().contains("@") || !user.getEmail().contains(".com"))
             throw new InvalidParamException();

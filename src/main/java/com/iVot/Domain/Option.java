@@ -1,4 +1,4 @@
-package com.iVot.Domain;
+/*package com.iVot.Domain;
 
 import com.iVot.Utilities.InvalidParamException;
 
@@ -52,3 +52,4 @@ public class Option {
         this.topic = topic;
     }
 }
+*/

@@ -1,4 +1,4 @@
-package com.iVot.Persistence.Answers;
+/*package com.iVot.Persistence.Answers;
 
 import com.iVot.Domain.Answer;
 import org.springframework.data.repository.CrudRepository;
@@ -26,3 +26,4 @@ public interface HelperAnswerRepository extends CrudRepository<Answer, Integer> 
     @Transactional
     boolean existsByTopicIdAndParticipantId(int topicId, int participantId);
 }
+*/

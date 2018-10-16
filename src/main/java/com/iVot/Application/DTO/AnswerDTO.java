@@ -1,4 +1,4 @@
-package com.iVot.Application.DTO;
+/*package com.iVot.Application.DTO;
 
 
 import com.google.gson.annotations.Expose;
@@ -70,4 +70,17 @@ public class AnswerDTO {
     public Option getOption() {
         return option;
     }
+
+    public String getParticipantName() {
+        return participantName;
+    }
+
+    public String getParticipantEmail() {
+        return participantEmail;
+    }
+
+    public String getParticipantOrganization() {
+        return participantOrganization;
+    }
 }
+*/

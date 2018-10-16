@@ -28,12 +28,12 @@ public class UserRestController {
         return gson.toJson(object);
     }
 
-    @PostMapping(value = "/users", produces = "application/json;charset=UTF-8")
-    public String register(@RequestBody String jUser) throws InvalidParamException, NotFoundException {
+    @PostMapping(value = "/users/organizations/{organizationId}", produces = "application/json;charset=UTF-8")
+    public String register(@PathVariable int organizationId, @RequestBody String jUser) throws InvalidParamException, NotFoundException {
 
         UserDTO newUser = new Gson().fromJson(jUser, UserDTO.class);
 
-        UserDTO user = userController.createUser(newUser);
+        UserDTO user = userController.createUser(newUser, organizationId);
 
         return toJson(user);
     }

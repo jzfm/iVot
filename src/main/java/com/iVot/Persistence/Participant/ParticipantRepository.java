@@ -22,7 +22,7 @@ public class ParticipantRepository {
     @Autowired
     private UserRepository userRepository;
 
-    ParticipantRepository(){}
+    public ParticipantRepository(){}
     //They can invite the same user to the same event multiple times, this will break the app, look for a solution.
     public void save(Participant participant) throws InvalidParamException {
         if (participant == null)
