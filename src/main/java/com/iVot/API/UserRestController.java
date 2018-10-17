@@ -19,9 +19,6 @@ public class UserRestController {
     @Autowired
     private UserController userController;
 
-    @Autowired
-    private ParticipantController participantController;
-
     private String toJson(Object object){
 
         Gson gson=new GsonBuilder().excludeFieldsWithoutExposeAnnotation().create();

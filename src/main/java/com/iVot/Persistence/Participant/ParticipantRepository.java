@@ -23,9 +23,11 @@ public class ParticipantRepository {
     private UserRepository userRepository;
 
     public ParticipantRepository(){}
-    //They can invite the same user to the same event multiple times, this will break the app, look for a solution.
+
     public void save(Participant participant) throws InvalidParamException {
         if (participant == null)
+            throw new InvalidParamException();
+        if (repository.existsByUserEmail(participant.getUser().getToken()))
             throw new InvalidParamException();
         repository.save(participant);
     }

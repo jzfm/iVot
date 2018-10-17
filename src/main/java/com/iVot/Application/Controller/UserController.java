@@ -36,8 +36,8 @@ public class UserController {
     }
 
     public UserDTO userLogging(UserDTO userDTO) throws InvalidParamException, NotFoundException {
-        User user = userRepository.getUserByEmail(userDTO.getEmail());
-        user.checkPasswordIsCorrect(userDTO.getPassword());
+        User user = userRepository.getUserByEmail(userDTO.getToken());
+        //user.checkPasswordIsCorrect(userDTO.getPassword());
         return new UserDTO(user);
     }
 
@@ -71,15 +71,15 @@ public class UserController {
 
     public UserDTO updateUserById(int userId, UserDTO userToUpdate) throws NotFoundException, InvalidParamException {
         User user = userRepository.getUserById(userId);
-        if (!userToUpdate.getEmail().equals("") && userToUpdate.getEmail().contains("@")
-                && userToUpdate.getEmail().contains(".com"))
-            user.setEmail(userToUpdate.getEmail());
+        if (!userToUpdate.getToken().equals("") && userToUpdate.getToken().contains("@")
+                && userToUpdate.getToken().contains(".com"))
+            user.setToken(userToUpdate.getToken());
         if (!userToUpdate.getName().equals(""))
             user.setName(userToUpdate.getName());
         if (!userToUpdate.getLastName().equals(""))
             user.setLastName(userToUpdate.getLastName());
-        if (!userToUpdate.getPassword().equals(""))
-            user.setPassword(userToUpdate.getPassword());
+        /*if (!userToUpdate.getPassword().equals(""))
+            user.setPassword(userToUpdate.getPassword());*/
         if (!userToUpdate.getIcon().equals(""))
             user.setIcon(userToUpdate.getIcon());
         if (userToUpdate.getOrganization() != null)
@@ -90,15 +90,15 @@ public class UserController {
 
     public UserDTO updateUserByEmail(String email, UserDTO userToUpdate) throws NotFoundException, InvalidParamException {
         User user = userRepository.getUserByEmail(email);
-        if (!userToUpdate.getEmail().equals("") && userToUpdate.getEmail().contains("@")
-                && userToUpdate.getEmail().contains(".com"))
-            user.setEmail(userToUpdate.getEmail());
+        if (!userToUpdate.getToken().equals("") && userToUpdate.getToken().contains("@")
+                && userToUpdate.getToken().contains(".com"))
+            user.setToken(userToUpdate.getToken());
         if (!userToUpdate.getName().equals(""))
             user.setName(userToUpdate.getName());
         if (!userToUpdate.getLastName().equals(""))
             user.setLastName(userToUpdate.getLastName());
-        if (!userToUpdate.getPassword().equals(""))
-            user.setPassword(userToUpdate.getPassword());
+        /*if (!userToUpdate.getPassword().equals(""))
+            user.setPassword(userToUpdate.getPassword());*/
         if (!userToUpdate.getIcon().equals(""))
             user.setIcon(userToUpdate.getIcon());
         if (userToUpdate.getOrganization() != null)

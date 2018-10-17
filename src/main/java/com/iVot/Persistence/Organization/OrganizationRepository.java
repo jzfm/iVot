@@ -59,7 +59,7 @@ public class OrganizationRepository {
     }
 
     public Organization getOrganizationByEmail(String email) throws InvalidParamException, NotFoundException {
-        if (email.equals("") || !email.matches("@"))
+        if (email.equals("") || !email.contains("@"))
             throw new InvalidParamException();
         if (repository.existsByEmail(email)){
             return repository.findByEmail(email);

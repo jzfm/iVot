@@ -24,11 +24,7 @@ public class TopicRepository {
     public void save(Topic topic) throws InvalidParamException {
         if (topic == null)
             throw new InvalidParamException();
-        if (repository.existsById(topic.getId())) {
-            throw new InvalidParamException();
-        } else {
-            repository.save(topic);
-        }
+        repository.save(topic);
     }
 
     public void removeTopicById(int topicId) throws NotFoundException, InvalidParamException {

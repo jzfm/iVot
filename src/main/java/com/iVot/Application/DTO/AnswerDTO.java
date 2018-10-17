@@ -37,7 +37,7 @@ public class AnswerDTO {
         this.topic = answer.getTopic();
         this.option = answer.getOption();
         this.participantName = participant.getUser().getName();
-        this.participantEmail = participant.getUser().getEmail();
+        this.participantEmail = participant.getUser().getToken();
         this.participantOrganization = participant.getUser().getOrganization().getName();
     }
 

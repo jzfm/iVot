@@ -77,4 +77,25 @@ public class OrganizationRestController {
         return toJson(organizationController.removeOrganizationById(organizationId));
 
     }
+
+    @GetMapping(value = "/users/organizations", produces = "application/json;charset=UTF-8")
+    public String registerOrgList() throws InvalidParamException, NotFoundException {
+
+        List<OrganizationDTO> organizationList= organizationController.listOfOrganizations();
+
+        return toJson(organizationList);
+    }
+
+    //////Admin role///////
+/*
+    @PostMapping(value = "/admin/", produces = "application/json;charset=UTF-8")
+    public String adminLogin(@RequestBody String jOrganization) throws NotFoundException, InvalidParamException {
+
+        OrganizationDTO adminLog = new Gson().fromJson(jOrganization, OrganizationDTO.class);
+
+        OrganizationDTO admin = organizationController.logAdmin(adminLog);
+
+        return toJson(admin);
+    }
+    */
 }

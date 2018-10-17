@@ -61,6 +61,8 @@ public class OrganizationController {
             organization.setIcon(organizationToUpdate.getIcon());
         if (!organizationToUpdate.getPassword().equals(""))
             organization.setPassword(organizationToUpdate.getPassword());
+        if (!organizationToUpdate.getAddress().equals(""))
+            organization.setAddress(organizationToUpdate.getAddress());
         organizationRepository.save(organization);
         return new OrganizationDTO(organization);
     }
@@ -79,6 +81,8 @@ public class OrganizationController {
             organization.setIcon(organizationToUpdate.getIcon());
         if (!organizationToUpdate.getPassword().equals(""))
             organization.setPassword(organizationToUpdate.getPassword());
+        if (!organizationToUpdate.getAddress().equals(""))
+            organization.setAddress(organizationToUpdate.getAddress());
         organizationRepository.save(organization);
         return new OrganizationDTO(organization);
     }
@@ -94,4 +98,12 @@ public class OrganizationController {
         organizationRepository.removeOrganizationByEmail(email);
         return new OrganizationDTO(organization);
     }
+  /*  //improve the admin role, just for testing
+    public OrganizationDTO logAdmin(OrganizationDTO admin) throws InvalidParamException, NotFoundException {
+        Organization organization = organizationRepository.getOrganizationByEmail(admin.getEmail());
+        if (!organization.getEmail().equals("admin@ivot.com") && !organization.getPassword().equals("admin"))
+            throw new InvalidParamException();
+        //organization.checkPasswordIsCorrect(admin.getPassword());
+        return new OrganizationDTO(organization);
+    }*/
 }

@@ -1,7 +1,6 @@
 package com.iVot.Domain;
 
 import com.iVot.Application.DTO.UserDTO;
-import com.iVot.Utilities.Encryptor;
 import com.iVot.Utilities.InvalidParamException;
 
 import javax.persistence.Column;
@@ -22,10 +21,12 @@ public class User {
     private String name;
     @Column(name = "lastName")
     private String lastName;
+    @Column(name = "token")
+    private String token;
     @Column(name = "email")
     private String email;
-    @Column(name = "password")
-    private String password;
+    /*@Column(name = "password")
+    private String password;*/
     @Column(name = "icon")
     private String icon;
     @ManyToOne(targetEntity = Organization.class)
@@ -35,7 +36,7 @@ public class User {
     public User(){}
 /*
     public User (UserDTO user) throws InvalidParamException {
-        if (user.getEmail().equals("") || !user.getEmail().contains("@") || !user.getEmail().contains(".com"))
+        if (user.getToken().equals("") || !user.getToken().contains("@") || !user.getToken().contains(".com"))
             throw new InvalidParamException();
         if(user.getPassword().equals(""))
             throw new InvalidParamException();
@@ -46,35 +47,38 @@ public class User {
 
         this.name = user.getName();
         this.lastName = user.getLastName();
-        this.email = user.getEmail();
+        this.token = user.getToken();
         this.password = user.getPassword();
         this.icon = user.getIcon();
     }
 */
     public User (UserDTO user, Organization organization) throws InvalidParamException {
-        if (user.getEmail().equals("") || !user.getEmail().contains("@") || !user.getEmail().contains(".com"))
+        if (user.getToken().equals(""))
             throw new InvalidParamException();
-        if(user.getPassword().equals(""))
+        /*if(user.getPassword().equals(""))
             throw new InvalidParamException();
+            */
         if (user.getName().equals("") || user.getName().matches("[$&+,:;=?@#|'<>.^*()%!-]"))
             throw new InvalidParamException();
         if (user.getLastName().equals("") || user.getLastName().matches("[$&+,:;=?@#|'<>.^*()%!-]"))
+            throw new InvalidParamException();
+        if (user.getEmail().equals("") || !user.getEmail().contains("@") || !user.getEmail().contains(".com"))
             throw new InvalidParamException();
         if (organization == null)
             throw new InvalidParamException();
 
         this.name = user.getName();
         this.lastName = user.getLastName();
-        this.email = user.getEmail();
-        this.password = user.getPassword();
+        this.token = user.getToken();
+        //this.password = user.getPassword();
         this.icon = user.getIcon();
         this.organization = organization;
     }
-
+/*
     public void checkPasswordIsCorrect(String password) throws InvalidParamException {
         Encryptor.checkIfPasswordMatches(password, this.password);
     }
-
+*/
     public Integer getId() {
         return id;
     }
@@ -99,14 +103,14 @@ public class User {
         this.lastName = lastName;
     }
 
-    public String getEmail() {
-        return email;
+    public String getToken() {
+        return token;
     }
 
-    public void setEmail(String email) {
-        this.email = email;
+    public void setToken(String token) {
+        this.token = token;
     }
-
+/*
     public String getPassword() {
         return password;
     }
@@ -114,7 +118,7 @@ public class User {
     public void setPassword(String password) {
         this.password = password;
     }
-
+*/
     public String getIcon() {
         return icon;
     }
@@ -131,5 +135,13 @@ public class User {
 
     public void setOrganizationId(Organization organization) {
         this.organization = organization;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
     }
 }

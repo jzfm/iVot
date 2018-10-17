@@ -28,7 +28,7 @@ public class ParticipantDTO {
         this.representation = participant.isRepresentation();
         this.user = participant.getUser();
         this.event = participant.getEvent();
-        this.userEmail = participant.getUser().getEmail();
+        this.userEmail = participant.getUser().getToken();
     }
 
     public Integer getId() {
@@ -55,7 +55,7 @@ public class ParticipantDTO {
 
     public String getUserEmail() {
         if (userEmail == null)
-            return userEmail = "";
+            return "";
         return userEmail;
     }
 }

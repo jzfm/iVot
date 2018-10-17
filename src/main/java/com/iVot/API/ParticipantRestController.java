@@ -8,7 +8,6 @@ import com.iVot.Utilities.InvalidParamException;
 import com.iVot.Utilities.NotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
-import org.json.simple.JSONObject;
 
 import java.util.List;
 

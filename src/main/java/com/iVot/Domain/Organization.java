@@ -26,8 +26,8 @@ public class Organization {
     private String icon;
     @Column(name = "description")
     private String description;
-   /* @Column(name = "address")
-    private String address;*/
+    @Column(name = "address")
+    private String address;
 
     public Organization(){}
 
@@ -44,7 +44,7 @@ public class Organization {
         this.name = organization.getName();
         this.description = organization.getDescription();
         this.email = organization.getEmail();
-        this.password = organization.getPassword();
+        this.password = Encryptor.encryptPassword(organization.getPassword());
         this.icon = organization.getIcon();
     }
 
@@ -98,5 +98,13 @@ public class Organization {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
     }
 }

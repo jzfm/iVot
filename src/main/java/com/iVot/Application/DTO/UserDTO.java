@@ -9,8 +9,8 @@ public class UserDTO {
     @Expose
     private Integer id;
     @Expose
-    private String name, lastName, email, icon;
-    private String password;
+    private String name, lastName, token, icon, email;
+    //private String password;
     private Organization organization;
     @Expose
     private int organizationId;
@@ -23,13 +23,14 @@ public class UserDTO {
 
         this.name = user.getName();
         this.lastName= user.getLastName();
-        this.email = user.getEmail();
+        this.token = user.getToken();
         this.icon = user.getIcon();
-        this.password = user.getPassword();
+        //this.password = user.getPassword();
         this.id = user.getId();
         this.organization = user.getOrganization();
         this.organizationId = user.getOrganization().getId();
         this.organizationName = user.getOrganization().getName();
+        this.email = user.getEmail();
     }
 
     public int getId() {
@@ -48,16 +49,23 @@ public class UserDTO {
         return lastName;
     }
 
-    public String getEmail() {
-        if(email == null)
+    public String getToken() {
+        if(token == null)
             return "";
-        return email;
+        return token;
     }
-
+/*
     public String getPassword() {
         if(password == null)
             return "";
         return password;
+    }
+*/
+
+    public String getEmail() {
+        if (email == null)
+            return "";
+        return email;
     }
 
     public String getIcon() {
