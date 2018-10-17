@@ -16,6 +16,8 @@ public class ParticipantDTO {
     private User user;
     @Expose
     private Event event;
+    @Expose
+    private String userEmail;
 
     public ParticipantDTO(Participant participant) throws NotFoundException {
         if (participant == null)
@@ -26,6 +28,7 @@ public class ParticipantDTO {
         this.representation = participant.isRepresentation();
         this.user = participant.getUser();
         this.event = participant.getEvent();
+        this.userEmail = participant.getUser().getEmail();
     }
 
     public Integer getId() {
@@ -33,6 +36,8 @@ public class ParticipantDTO {
     }
 
     public Integer getAssignedVotes() {
+        if (assignedVotes <= 0)
+            return assignedVotes = 1;
         return assignedVotes;
     }
 
@@ -46,5 +51,11 @@ public class ParticipantDTO {
 
     public Event getEvent() {
         return event;
+    }
+
+    public String getUserEmail() {
+        if (userEmail == null)
+            return userEmail = "";
+        return userEmail;
     }
 }

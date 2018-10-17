@@ -27,11 +27,7 @@ public class ParticipantRepository {
     public void save(Participant participant) throws InvalidParamException {
         if (participant == null)
             throw new InvalidParamException();
-        if (repository.existsById(participant.getId())) {
-            throw new InvalidParamException();
-        } else {
-            repository.save(participant);
-        }
+        repository.save(participant);
     }
 
     public void removeParticipantByIdAndEventId(int participantId, int eventId) throws NotFoundException, InvalidParamException {

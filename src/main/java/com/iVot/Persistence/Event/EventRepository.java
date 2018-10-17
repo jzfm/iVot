@@ -23,11 +23,7 @@ public class EventRepository {
     public void save(Event event) throws InvalidParamException {
         if (event == null)
             throw new InvalidParamException();
-        if (repository.existsById(event.getId())) {
-            throw new InvalidParamException();
-        } else {
-            repository.save(event);
-        }
+        repository.save(event);
     }
 
     public void removeEventById(int eventId) throws NotFoundException, InvalidParamException {

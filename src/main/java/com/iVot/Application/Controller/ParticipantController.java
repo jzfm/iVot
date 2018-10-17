@@ -27,10 +27,10 @@ public class ParticipantController {
     @Autowired
     EventRepository eventRepository;
 
-    public ParticipantDTO createParticipant(String userEmail, int eventId, int assignedVotes, boolean representation, int organizationId) throws InvalidParamException, NotFoundException {
-        User user = userRepository.getUserByEmail(userEmail);
+    public ParticipantDTO createParticipant(ParticipantDTO participantDTO, int eventId, int organizationId) throws InvalidParamException, NotFoundException {
+        User user = userRepository.getUserByEmail(participantDTO.getUserEmail());
         Event event = eventRepository.getEventByIdAndOrganizationId(eventId, organizationId);
-        Participant participant = new Participant(user, event, assignedVotes, representation);
+        Participant participant = new Participant(user, event, participantDTO.getAssignedVotes(), participantDTO.isRepresentation());
         participantRepository.save(participant);
         //TODO send an email to the participant when is created.
         return new ParticipantDTO(participant);

@@ -26,15 +26,13 @@ public class ParticipantRestController {
     }
 
     @PostMapping(value = "/organizations/{organizationId}/events/{eventId}/participant", produces = "application/json;charset=UTF-8")
-    public String inviteParticipant(@PathVariable int organizationId, @PathVariable int eventId, @RequestBody JSONObject jObject) throws InvalidParamException, NotFoundException {
+    public String inviteParticipant(@PathVariable int organizationId, @PathVariable int eventId, @RequestBody String jParticipant) throws InvalidParamException, NotFoundException {
 
-        int assignedVotes = (int)jObject.get("assignedVotes");
-        boolean representation = (boolean)jObject.get("representation");
-        String userEmail = (String)jObject.get("userEmail");
+        ParticipantDTO newParticipant = new Gson().fromJson(jParticipant, ParticipantDTO.class);
 
-        ParticipantDTO newParticipant = participantController.createParticipant(userEmail, eventId, assignedVotes, representation, organizationId);
+        ParticipantDTO Participant = participantController.createParticipant(newParticipant, eventId, organizationId);
 
-        return toJson(newParticipant);
+        return toJson(Participant);
     }
 
     @GetMapping(value = "/organizations/{organizationId}/events/{eventId}/participant", produces = "application/json;charset=UTF-8")
