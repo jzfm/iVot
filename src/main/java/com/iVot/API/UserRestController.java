@@ -25,7 +25,7 @@ public class UserRestController {
         return gson.toJson(object);
     }
 
-    @PostMapping(value = "/users/organizations/{organizationId}", produces = "application/json;charset=UTF-8")
+    @PostMapping(value = "/organizations/{organizationId}/users", produces = "application/json;charset=UTF-8")
     public String register(@PathVariable int organizationId, @RequestBody String jUser) throws InvalidParamException, NotFoundException {
 
         UserDTO newUser = new Gson().fromJson(jUser, UserDTO.class);
@@ -43,7 +43,7 @@ public class UserRestController {
         return toJson(users);
     }
 
-    @GetMapping(value = "organizations/{organizationId}/users", produces = "application/json;charset=UTF-8")
+    @GetMapping(value = "/organizations/{organizationId}/users", produces = "application/json;charset=UTF-8")
     public String listUsersByOrganization(@PathVariable int organizationId) throws NotFoundException, InvalidParamException {
 
         List<UserDTO> users = userController.getAllUsersByOrganization(organizationId);

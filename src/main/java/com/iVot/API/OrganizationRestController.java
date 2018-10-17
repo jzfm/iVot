@@ -42,7 +42,7 @@ public class OrganizationRestController {
         return toJson(organizations);
     }
 
-    @PostMapping(value = "organizations/login", produces = "application/json;charset=UTF-8")
+    @PostMapping(value = "/organizations/login", produces = "application/json;charset=UTF-8")
     public String login(@RequestBody String jOrganization) throws NotFoundException, InvalidParamException {
 
         OrganizationDTO organizationToLog = new Gson().fromJson(jOrganization, OrganizationDTO.class);
