@@ -84,6 +84,7 @@ public class UserController {
             user.setIcon(userToUpdate.getIcon());
         if (userToUpdate.getOrganization() != null)
             user.setOrganization(userToUpdate.getOrganization());
+        removeUserById(userId);
         userRepository.save(user);
         return new UserDTO(user);
     }

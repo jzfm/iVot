@@ -2,7 +2,6 @@
 
 import com.iVot.Application.DTO.OptionDTO;
 import com.iVot.Domain.Option;
-import com.iVot.Domain.Participant;
 import com.iVot.Domain.Topic;
 import com.iVot.Persistence.Event.EventRepository;
 import com.iVot.Persistence.Option.OptionRepository;

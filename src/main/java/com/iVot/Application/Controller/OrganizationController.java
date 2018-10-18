@@ -24,7 +24,7 @@ public class OrganizationController {
 
     public OrganizationDTO organizationLogging(OrganizationDTO organizationDTO) throws InvalidParamException, NotFoundException {
         Organization organization = organizationRepository.getOrganizationByEmail(organizationDTO.getEmail());
-        organization.checkPasswordIsCorrect(organizationDTO.getPassword());
+        //organization.checkPasswordIsCorrect(organizationDTO.getPassword());
         return new OrganizationDTO(organization);
     }
 
@@ -59,10 +59,11 @@ public class OrganizationController {
             organization.setDescription(organizationToUpdate.getDescription());
         if (!organizationToUpdate.getIcon().equals(""))
             organization.setIcon(organizationToUpdate.getIcon());
-        if (!organizationToUpdate.getPassword().equals(""))
-            organization.setPassword(organizationToUpdate.getPassword());
+    /*    if (!organizationToUpdate.getPassword().equals(""))
+            organization.setPassword(organizationToUpdate.getPassword());*/
         if (!organizationToUpdate.getAddress().equals(""))
             organization.setAddress(organizationToUpdate.getAddress());
+        removeOrganizationById(organizationId);
         organizationRepository.save(organization);
         return new OrganizationDTO(organization);
     }
@@ -79,8 +80,8 @@ public class OrganizationController {
             organization.setDescription(organizationToUpdate.getDescription());
         if (!organizationToUpdate.getIcon().equals(""))
             organization.setIcon(organizationToUpdate.getIcon());
-        if (!organizationToUpdate.getPassword().equals(""))
-            organization.setPassword(organizationToUpdate.getPassword());
+       /* if (!organizationToUpdate.getPassword().equals(""))
+            organization.setPassword(organizationToUpdate.getPassword()); */
         if (!organizationToUpdate.getAddress().equals(""))
             organization.setAddress(organizationToUpdate.getAddress());
         organizationRepository.save(organization);

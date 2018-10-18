@@ -22,6 +22,8 @@ public class Event {
     private String pdfFile;
     @Column(name = "date")
     private Calendar date;
+    @Column(name = "eventDate")
+    private String eventDate;
     @Column(name = "post")
     private boolean post;
     @Column(name = "close")
@@ -36,6 +38,8 @@ public class Event {
         if (event.getName().equals("") || event.getName().matches("[$&+,:;=?@#|'<>.^*()%!-]"))
             throw new InvalidParamException();
         if (event.getDescription().equals("") || event.getDescription().matches("[$&+,:;=?@#|'<>.^*()%!-]"))
+            throw new InvalidParamException();
+        if (event.getEventDate().equals(""))
             throw new InvalidParamException();
         if (organization == null)
             throw new InvalidParamException();
@@ -118,5 +122,13 @@ public class Event {
 
     public void setOrganization(Organization organization) {
         this.organization = organization;
+    }
+
+    public String getEventDate() {
+        return eventDate;
+    }
+
+    public void setEventDate(String eventDate) {
+        this.eventDate = eventDate;
     }
 }

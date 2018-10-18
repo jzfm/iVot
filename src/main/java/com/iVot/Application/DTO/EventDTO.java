@@ -12,7 +12,7 @@ public class EventDTO {
     @Expose
     private Integer id;
     @Expose
-    private String name, description, icon, pdfFile;
+    private String name, description, icon, pdfFile, eventDate;
     @Expose
     private Calendar date;
     @Expose
@@ -33,6 +33,7 @@ public class EventDTO {
         this.post = event.isPost();
         this.close = event.isClose();
         this.organization = event.getOrganization();
+        this.eventDate = event.getEventDate();
     }
 
     public Integer getId() {
@@ -64,7 +65,6 @@ public class EventDTO {
     }
 
     public Calendar getDate() {
-        //validar fecha con calendar data type
         return date;
     }
 
@@ -77,11 +77,14 @@ public class EventDTO {
     }
 
     public Organization getOrganization() {
-        //validar organizacion
         return organization;
     }
 
     public int getOrganizationId() {
         return organization.getId();
+    }
+
+    public String getEventDate() {
+        return eventDate;
     }
 }

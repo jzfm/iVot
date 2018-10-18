@@ -20,8 +20,8 @@ public class Organization {
     private String name;
     @Column(name = "email")
     private String email;
-    @Column(name = "password")
-    private String password;
+    /*@Column(name = "password")
+    private String password;*/
     @Column(name = "icon")
     private String icon;
     @Column(name = "description")
@@ -34,8 +34,8 @@ public class Organization {
     public Organization (OrganizationDTO organization) throws InvalidParamException {
         if (organization.getEmail().equals("") || !organization.getEmail().contains("@"))
             throw new InvalidParamException();
-        if(organization.getPassword().equals(""))
-            throw new InvalidParamException();
+        /*if(organization.getPassword().equals(""))
+            throw new InvalidParamException();*/
         if (organization.getName().equals("") || organization.getName().matches("[$&+,:;=?@#|'<>.^*()%!-]"))
             throw new InvalidParamException();
         if (organization.getDescription().equals("") || organization.getDescription().matches("[$&+,:;=?@#|'<>.^*()%!-]"))
@@ -44,13 +44,13 @@ public class Organization {
         this.name = organization.getName();
         this.description = organization.getDescription();
         this.email = organization.getEmail();
-        this.password = Encryptor.encryptPassword(organization.getPassword());
+        //this.password = Encryptor.encryptPassword(organization.getPassword());
         this.icon = organization.getIcon();
     }
 
-    public void checkPasswordIsCorrect(String password) throws InvalidParamException {
+    /*public void checkPasswordIsCorrect(String password) throws InvalidParamException {
         Encryptor.checkIfPasswordMatches(password, this.password);
-    }
+    }*/
 
     public Integer getId() {
         return id;
@@ -76,13 +76,13 @@ public class Organization {
         this.email = email;
     }
 
-    public String getPassword() {
+   /* public String getPassword() {
         return password;
-    }
+    }*/
 
-    public void setPassword(String password) {
+   /* public void setPassword(String password) {
         this.password = password;
-    }
+    }*/
 
     public String getIcon() {
         return icon;

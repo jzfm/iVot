@@ -9,7 +9,7 @@ public class OrganizationDTO {
     private Integer id;
     @Expose
     private String name, email, icon, description, address;
-    private String password;
+    //private String password;
 
     public OrganizationDTO(Organization organization) throws NotFoundException {
         if (organization == null)
@@ -17,7 +17,7 @@ public class OrganizationDTO {
 
         this.name = organization.getName();
         this.email = organization.getEmail();
-        this.password = organization.getPassword();
+        //this.password = organization.getPassword();
         this.description = organization.getDescription();
         this.icon = organization.getIcon();
         this.address = organization.getAddress();
@@ -51,13 +51,13 @@ public class OrganizationDTO {
             return description = "";
         return description;
     }
-
+/*
     public String getPassword() {
         if (password == null)
             return password = "";
         return password;
     }
-
+*/
     public String getAddress() {
         if (address == null)
             return address = "";
