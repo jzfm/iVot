@@ -1,4 +1,4 @@
-/*package com.iVot.Persistence.Answers;
+package com.iVot.Persistence.Answers;
 
 import com.iVot.Domain.Answer;
 import org.springframework.data.repository.CrudRepository;
@@ -12,18 +12,17 @@ public interface HelperAnswerRepository extends CrudRepository<Answer, Integer> 
     List<Answer> findAllByTopicId(int topicId);
 
     @Transactional
-    List<Answer> findAllByOptionId(int optionId);
+    List<Answer> findAllByQuestionId(int optionId);
 
     @Transactional
-    Answer findByIdAndOptionId(int answerId, int optionId);
+    Answer findByIdAndQuestionId(int answerId, int optionId);
 
     @Transactional
     Answer findByIdAndParticipantId(int answerId, int participantId);
 
     @Transactional
-    void removeByIdAndOptionId(int answerId, int optionId);
+    void removeByIdAndQuestionId(int answerId, int optionId);
 
     @Transactional
     boolean existsByTopicIdAndParticipantId(int topicId, int participantId);
 }
-*/

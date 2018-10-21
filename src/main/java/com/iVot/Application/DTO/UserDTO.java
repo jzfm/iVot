@@ -79,6 +79,8 @@ public class UserDTO {
     }
 
     public String getOrganizationName() {
+        if (organizationName == null)
+            return organizationName = "";
         return organizationName;
     }
 

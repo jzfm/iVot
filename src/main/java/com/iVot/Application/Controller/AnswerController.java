@@ -1,7 +1,7 @@
-/*package com.iVot.Application.Controller;
+package com.iVot.Application.Controller;
 
 import com.iVot.Domain.*;
-import com.iVot.Persistence.Option.OptionRepository;
+import com.iVot.Persistence.Question.QuestionRepository;
 import com.iVot.Persistence.Participant.ParticipantRepository;
 import com.iVot.Utilities.AlreadyVoteException;
 import com.iVot.Utilities.EventIsNotAvailableException;
@@ -29,18 +29,18 @@ public class AnswerController {
     ParticipantRepository participantRepository;
 
     @Autowired
-    OptionRepository optionRepository;
+    QuestionRepository questionRepository;
 
-    public AnswerDTO createAnswer(String comment, int eventId, int topicId, int optionId, int userId) throws AlreadyVoteException, InvalidParamException, NotFoundException, EventIsNotAvailableException {
+    public AnswerDTO createAnswer(AnswerDTO answerDTO, int eventId, int topicId, int optionId, int userId) throws AlreadyVoteException, InvalidParamException, NotFoundException, EventIsNotAvailableException {
         Participant participant = participantRepository.getParticipantByUserIdAndEventId(userId, eventId);
         Event event = participant.getEvent();
         if (event.isPost() && !event.isClose()) {
             Topic topic = topicRepository.getTopicByIdAndEventId(topicId, eventId);
-            Option option = optionRepository.getOptionById(optionId);
+            Question question = questionRepository.getOptionById(optionId);
             if (!participant.getEvent().getId().equals(event.getId()))
                 throw new InvalidParamException();
             if (!answerRepository.existByTopicIdAndParticipantId(topic.getId(), participant.getId())) {
-                Answer answer = new Answer(comment, event, participant, topic, option);
+                Answer answer = new Answer(answerDTO.getComment(), event, participant, topic, question);
                 return new AnswerDTO(answer);
             } else {
                 throw new AlreadyVoteException();
@@ -62,11 +62,11 @@ public class AnswerController {
     public List<String> votesResults(int topicId, int eventId, int organizationId) throws InvalidParamException, NotFoundException {
         List<String> votesCount = new ArrayList<>();
         Integer voteSum = 0;
-        for (Option option : optionRepository.getAllOptionByTopicIdAndOrganization(topicId, eventId, organizationId)){
-            for (Answer answer : answerRepository.getAllAnswerByOptionId(option.getId())) {
+        for (Question question : questionRepository.getAllOptionByTopicIdAndOrganization(topicId, eventId, organizationId)){
+            for (Answer answer : answerRepository.getAllAnswerByOptionId(question.getId())) {
                 voteSum = answer.getParticipant().getAssignedVotes() + voteSum;
             }
-            votesCount.add(option.getDescription() + ":" + voteSum.toString());
+            votesCount.add(question.getDescription() + ":" + voteSum.toString());
             voteSum = 0;
         }
         return votesCount;
@@ -77,4 +77,3 @@ public class AnswerController {
         return new AnswerDTO(answer);
     }
 }
-*/

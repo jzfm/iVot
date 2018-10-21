@@ -1,10 +1,10 @@
-/*package com.iVot.Persistence.Answers;
+package com.iVot.Persistence.Answers;
 
 import com.iVot.Domain.Answer;
 import com.iVot.Persistence.Participant.ParticipantRepository;
 import com.iVot.Utilities.InvalidParamException;
 import com.iVot.Utilities.NotFoundException;
-import com.iVot.Persistence.Option.OptionRepository;
+import com.iVot.Persistence.Question.QuestionRepository;
 import com.iVot.Persistence.Topic.TopicRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -21,7 +21,7 @@ public class AnswerRepository {
     private TopicRepository topicRepository;
 
     @Autowired
-    private OptionRepository optionRepository;
+    private QuestionRepository questionRepository;
 
     @Autowired
     private ParticipantRepository participantRepository;
@@ -41,7 +41,7 @@ public class AnswerRepository {
     public void removeAnswerIdAndOptionId(int answerId, int optionId) throws NotFoundException, InvalidParamException {
         if (answerId <= 0 || optionId <= 0)
             throw new InvalidParamException();
-        if (optionRepository.optionExistById(answerId) && repository.existsById(answerId)) {
+        if (questionRepository.optionExistById(answerId) && repository.existsById(answerId)) {
             repository.deleteById(answerId);
         } else {
             throw new NotFoundException();
@@ -51,7 +51,7 @@ public class AnswerRepository {
     public Answer getAnswerByIdAndOptionId(int answerId, int optionId) throws NotFoundException, InvalidParamException {
         if (answerId <= 0 || optionId <= 0)
             throw new InvalidParamException();
-        if (repository.findById(answerId).isPresent() && optionRepository.optionExistById(optionId)) {
+        if (repository.findById(answerId).isPresent() && questionRepository.optionExistById(optionId)) {
             return repository.findById(answerId).get();
         } else {
             throw new NotFoundException();
@@ -71,8 +71,8 @@ public class AnswerRepository {
     public List<Answer> getAllAnswerByOptionId(int optionId) throws InvalidParamException, NotFoundException {
         if (optionId <= 0)
             throw new InvalidParamException();
-        if (optionRepository.optionExistById(optionId)){
-            return repository.findAllByOptionId(optionId);
+        if (questionRepository.optionExistById(optionId)){
+            return repository.findAllByQuestionId(optionId);
         }else{
             throw new NotFoundException();
         }
@@ -98,4 +98,3 @@ public class AnswerRepository {
         }
     }
 }
-*/

@@ -14,7 +14,7 @@ import javax.persistence.ManyToOne;
 @Entity (name = "User")
 public class User {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE)
     @Column(name = "userId")
     private Integer id;
     @Column(name = "name")
@@ -30,7 +30,7 @@ public class User {
     @Column(name = "icon")
     private String icon;
     @ManyToOne(targetEntity = Organization.class)
-    @JoinColumn(name ="organizationId")
+    @JoinColumn(name = "organizationId")
     private Organization organization;
 
     public User(){}
@@ -73,6 +73,7 @@ public class User {
         //this.password = user.getPassword();
         this.icon = user.getIcon();
         this.organization = organization;
+        this.email = user.getEmail();
     }
 /*
     public void checkPasswordIsCorrect(String password) throws InvalidParamException {

@@ -1,4 +1,4 @@
-/*package com.iVot.Domain;
+package com.iVot.Domain;
 
 import com.iVot.Utilities.InvalidParamException;
 
@@ -7,31 +7,31 @@ import javax.persistence.*;
 @Entity(name = "Answer")
 public class Answer {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE)
     @Column(name = "answerId")
     private Integer id;
     @Column(name = "comment")
     private String comment;
     @ManyToOne(targetEntity = Organization.class)
-    @JoinColumn(name = "organization")
+    @JoinColumn(name = "organizationId")
     private Organization organization;
     @ManyToOne(targetEntity = Event.class)
-    @JoinColumn(name = "event")
+    @JoinColumn(name = "eventId")
     private Event event;
     @ManyToOne(targetEntity = Participant.class)
-    @JoinColumn(name = "participant")
+    @JoinColumn(name = "participantId")
     private Participant participant;
     @ManyToOne(targetEntity = Topic.class)
-    @JoinColumn(name = "topic")
+    @JoinColumn(name = "topicId")
     private Topic topic;
-    @ManyToOne(targetEntity = Option.class)
-    @JoinColumn(name = "option")
-    private Option option;
+    @ManyToOne(targetEntity = Question.class)
+    @JoinColumn(name = "questionId")
+    private Question question;
 
     public Answer(){}
 
     public Answer(String comment, Event event, Participant participant,
-    Topic topic, Option option) throws InvalidParamException {
+    Topic topic, Question question) throws InvalidParamException {
         if (comment.equals("") || comment.matches("[$&+=|<>^*-]"))
             throw new InvalidParamException();
         if (event == null)
@@ -40,7 +40,7 @@ public class Answer {
             throw new InvalidParamException();
         if (topic == null)
             throw new InvalidParamException();
-        if (option == null)
+        if (question == null)
             throw new InvalidParamException();
 
         this.comment = comment;
@@ -48,7 +48,7 @@ public class Answer {
         this.event = event;
         this.participant = participant;
         this.topic = topic;
-        this.option = option;
+        this.question = question;
     }
 
     public Integer getId() {
@@ -99,12 +99,11 @@ public class Answer {
         this.topic = topic;
     }
 
-    public Option getOption() {
-        return option;
+    public Question getQuestion() {
+        return question;
     }
 
-    public void setOption(Option option) {
-        this.option = option;
+    public void setQuestion(Question question) {
+        this.question = question;
     }
 }
-*/

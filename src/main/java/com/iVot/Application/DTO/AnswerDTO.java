@@ -1,4 +1,4 @@
-/*package com.iVot.Application.DTO;
+package com.iVot.Application.DTO;
 
 
 import com.google.gson.annotations.Expose;
@@ -12,16 +12,11 @@ public class AnswerDTO {
     private Integer id;
     @Expose
     private String comment;
-    @Expose
     private Organization organization;
-    @Expose
     private Event event;
-    @Expose
     private Participant participant;
-    @Expose
     private Topic topic;
-    @Expose
-    private Option option;
+    private Question question;
     @Expose
     private String participantName, participantEmail, participantOrganization;
 
@@ -35,9 +30,9 @@ public class AnswerDTO {
         this.event = answer.getEvent();
         this.participant = answer.getParticipant();
         this.topic = answer.getTopic();
-        this.option = answer.getOption();
+        this.question = answer.getQuestion();
         this.participantName = participant.getUser().getName();
-        this.participantEmail = participant.getUser().getToken();
+        this.participantEmail = participant.getUser().getEmail();
         this.participantOrganization = participant.getUser().getOrganization().getName();
     }
 
@@ -67,8 +62,8 @@ public class AnswerDTO {
         return topic;
     }
 
-    public Option getOption() {
-        return option;
+    public Question getQuestion() {
+        return question;
     }
 
     public String getParticipantName() {
@@ -83,4 +78,3 @@ public class AnswerDTO {
         return participantOrganization;
     }
 }
-*/

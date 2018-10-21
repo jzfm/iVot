@@ -28,6 +28,8 @@ public class Organization {
     private String description;
     @Column(name = "address")
     private String address;
+    @Column(name = "token")
+    private String token;
 
     public Organization(){}
 
@@ -40,12 +42,15 @@ public class Organization {
             throw new InvalidParamException();
         if (organization.getDescription().equals("") || organization.getDescription().matches("[$&+,:;=?@#|'<>.^*()%!-]"))
             throw new InvalidParamException();
+        if (organization.getToken().equals("") || organization.getToken().matches("[$&+,:;=?@#|'<>.^*()%!-]"))
+            throw new InvalidParamException();
 
         this.name = organization.getName();
         this.description = organization.getDescription();
         this.email = organization.getEmail();
         //this.password = Encryptor.encryptPassword(organization.getPassword());
         this.icon = organization.getIcon();
+        this.token = organization.getToken();
     }
 
     /*public void checkPasswordIsCorrect(String password) throws InvalidParamException {
@@ -106,5 +111,13 @@ public class Organization {
 
     public void setAddress(String address) {
         this.address = address;
+    }
+
+    public String getToken() {
+        return token;
+    }
+
+    public void setToken(String token) {
+        this.token = token;
     }
 }

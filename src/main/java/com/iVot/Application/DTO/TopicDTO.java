@@ -11,7 +11,6 @@ public class TopicDTO {
     private Integer id;
     @Expose
     private String description;
-    @Expose
     private Event event;
 
     public TopicDTO(Topic topic) throws NotFoundException {

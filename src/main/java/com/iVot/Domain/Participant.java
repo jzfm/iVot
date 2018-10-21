@@ -7,7 +7,7 @@ import javax.persistence.*;
 @Entity(name = "Participant")
 public class Participant {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE)
     @Column(name = "participantId")
     private Integer id;
     @Column(name = "assignedVotes")

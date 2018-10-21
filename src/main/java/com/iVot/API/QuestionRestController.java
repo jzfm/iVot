@@ -1,9 +1,9 @@
-/*package com.iVot.API;
+package com.iVot.API;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import com.iVot.Application.Controller.OptionController;
-import com.iVot.Application.DTO.OptionDTO;
+import com.iVot.Application.Controller.QuestionController;
+import com.iVot.Application.DTO.QuestionDTO;
 import com.iVot.Utilities.InvalidParamException;
 import com.iVot.Utilities.NotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,10 +13,10 @@ import java.util.List;
 
 @CrossOrigin
 @RestController
-public class OptionRestController {
+public class QuestionRestController {
 
     @Autowired
-    private OptionController optionController;
+    private QuestionController questionController;
 
     private String toJson(Object object){
 
@@ -27,9 +27,9 @@ public class OptionRestController {
     @PostMapping(value = "/organizations/{organizationId}/events/{eventId}/topics/{topicId}/options", produces = "application/json;charset=UTF-8")
     public String createOption(@PathVariable int organizationId, @PathVariable int eventId, @PathVariable int topicId, @RequestBody String jOption) throws NotFoundException, InvalidParamException {
 
-        OptionDTO newOption = new Gson().fromJson(jOption, OptionDTO.class);
+        QuestionDTO newOption = new Gson().fromJson(jOption, QuestionDTO.class);
 
-        OptionDTO option = optionController.createOption(topicId, eventId, organizationId, newOption);
+        QuestionDTO option = questionController.createOption(topicId, eventId, organizationId, newOption);
 
         return toJson(option);
     }
@@ -37,7 +37,7 @@ public class OptionRestController {
     @GetMapping(value = "/organizations/{organizationId}/events/{eventId}/topics/{topicId}/options", produces = "application/json;charset=UTF-8")
     public String getAllOption(@PathVariable int organizationId, @PathVariable int eventId, @PathVariable int topicId) throws NotFoundException, InvalidParamException {
 
-        List<OptionDTO> optionList = optionController.getAllOptionsByTopicIdAndOrganization(topicId, eventId, organizationId);
+        List<QuestionDTO> optionList = questionController.getAllOptionsByTopicIdAndOrganization(topicId, eventId, organizationId);
 
         return toJson(optionList);
     }
@@ -45,7 +45,7 @@ public class OptionRestController {
     @GetMapping(value = "/organizations/{organizationId}/events/{eventId}/topics/{topicId}/options/{optionId}", produces = "application/json;charset=UTF-8")
     public String getOptionByIdAndTopic(@PathVariable int organizationId, @PathVariable int eventId, @PathVariable int topicId, @PathVariable int optionId) throws NotFoundException, InvalidParamException {
 
-        OptionDTO option = optionController.getOptionByIdAndTopicId(optionId, topicId, eventId, organizationId);
+        QuestionDTO option = questionController.getOptionByIdAndTopicId(optionId, topicId, eventId, organizationId);
 
         return toJson(option);
     }
@@ -53,9 +53,9 @@ public class OptionRestController {
     @PutMapping(value = "/organizations/{organizationId}/events/{eventId}/topics/{topicId}/options/{optionId}", produces = "application/json;charset=UTF-8")
     public String updateOption(@PathVariable int optionId, @PathVariable int topicId, @PathVariable int eventId, @PathVariable int organizationId, @RequestBody String jOption) throws NotFoundException, InvalidParamException {
 
-        OptionDTO optionToUpdate = new Gson().fromJson(jOption, OptionDTO.class);
+        QuestionDTO optionToUpdate = new Gson().fromJson(jOption, QuestionDTO.class);
 
-        OptionDTO option = optionController.updateOption(optionId, topicId, eventId, organizationId, optionToUpdate);
+        QuestionDTO option = questionController.updateOption(optionId, topicId, eventId, organizationId, optionToUpdate);
 
         return toJson(option);
     }
@@ -63,7 +63,7 @@ public class OptionRestController {
     @DeleteMapping(value = "/organizations/{organizationId}/events/{eventId}/topics/{topicId}/options", produces = "application/json;charset=UTF-8")
     public String deleteAllOptions(@PathVariable int topicId, @PathVariable int eventId, @PathVariable int organizationId) throws NotFoundException, InvalidParamException {
 
-        List<OptionDTO> deletedOptionsList = optionController.removeAllOptionsByTopicId(topicId, eventId, organizationId);
+        List<QuestionDTO> deletedOptionsList = questionController.removeAllOptionsByTopicId(topicId, eventId, organizationId);
 
         return toJson(deletedOptionsList);
     }
@@ -71,7 +71,7 @@ public class OptionRestController {
     @DeleteMapping(value = "/organizations/{organizationId}/events/{eventId}/topics/{topicId}/options/{optionId}", produces = "application/json;charset=UTF-8")
     public String deleteOptionById(@PathVariable int optionId, @PathVariable int topicId, @PathVariable int eventId, @PathVariable int organizationId) throws NotFoundException, InvalidParamException {
 
-        OptionDTO optionToDelete = optionController.removeOptionByIdAndTopicId(optionId, topicId, eventId, organizationId);
+        QuestionDTO optionToDelete = questionController.removeOptionByIdAndTopicId(optionId, topicId, eventId, organizationId);
 
         return toJson(optionToDelete);
     }
@@ -79,7 +79,7 @@ public class OptionRestController {
     @GetMapping(value = "/users/{userId}/events/{eventId}/topics/{topicId}/options", produces = "application/json;charset=UTF-8")
     public String getAllOptionsByUser(@PathVariable int topicId, @PathVariable int eventId, @PathVariable int userId) throws NotFoundException, InvalidParamException {
 
-        List<OptionDTO> optionList = optionController.getAllOptionsByTopicId(topicId);
+        List<QuestionDTO> optionList = questionController.getAllOptionsByTopicId(topicId);
 
         return toJson(optionList);
     }
@@ -87,9 +87,8 @@ public class OptionRestController {
     @GetMapping(value = "/users/{userId}/events/{eventId}/topics/{topicId}/options/{optionId}", produces = "application/json;charset=UTF-8")
     public String getTopicByIdAndUser(@PathVariable int topicId, @PathVariable int eventId, @PathVariable int userId, @PathVariable int optionId) throws NotFoundException, InvalidParamException {
 
-        OptionDTO option = optionController.getOptionById(optionId);
+        QuestionDTO option = questionController.getOptionById(optionId);
 
         return toJson(option);
     }
 }
-*/

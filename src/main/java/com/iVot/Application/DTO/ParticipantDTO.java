@@ -12,9 +12,7 @@ public class ParticipantDTO {
     private Integer id, assignedVotes;
     @Expose
     private boolean representation;
-    @Expose
     private User user;
-    @Expose
     private Event event;
     @Expose
     private String userEmail;
@@ -28,7 +26,7 @@ public class ParticipantDTO {
         this.representation = participant.isRepresentation();
         this.user = participant.getUser();
         this.event = participant.getEvent();
-        this.userEmail = participant.getUser().getToken();
+        this.userEmail = participant.getUser().getEmail();
     }
 
     public Integer getId() {

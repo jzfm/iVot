@@ -13,11 +13,8 @@ public class EventDTO {
     private Integer id;
     @Expose
     private String name, description, icon, pdfFile, eventDate;
-    @Expose
     private Calendar date;
-    @Expose
     private boolean post, close;
-    @Expose
     private Organization organization;
 
     public EventDTO(Event event) throws NotFoundException {

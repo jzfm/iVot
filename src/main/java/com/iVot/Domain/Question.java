@@ -1,14 +1,14 @@
-/*package com.iVot.Domain;
+package com.iVot.Domain;
 
 import com.iVot.Utilities.InvalidParamException;
 
 import javax.persistence.*;
 
-@Entity(name = "Option")
-public class Option {
+@Entity(name = "Question")
+public class Question {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "optionId")
+    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    @Column(name = "questionId")
     private Integer id;
     @Column(name = "description")
     private String description;
@@ -16,9 +16,9 @@ public class Option {
     @JoinColumn(name = "topicId")
     private Topic topic;
 
-    public Option(){}
+    public Question(){}
 
-    public Option(String description, Topic topic) throws InvalidParamException {
+    public Question(String description, Topic topic) throws InvalidParamException {
         if (description.equals("") || description.matches("[$&+=|<>^*-]"))
             throw new InvalidParamException();
         if (topic == null)
@@ -52,4 +52,3 @@ public class Option {
         this.topic = topic;
     }
 }
-*/

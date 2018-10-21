@@ -60,7 +60,7 @@ public class UserRepository {
         if (organizationId <= 0)
             throw new InvalidParamException();
         if (organizationRepository.organizationExistById(organizationId)){
-            return repository.findAllByOrganization(organizationId);
+            return repository.findAllByorganization_id(organizationId);
         }else{
             throw new NotFoundException();
         }
@@ -70,7 +70,7 @@ public class UserRepository {
         if (organizationId <= 0)
             throw new InvalidParamException();
         if (organizationRepository.organizationExistById(organizationId)) {
-            return repository.findAllByOrganization(organizationId);
+            return repository.findAllByorganization_id(organizationId);
         }else{
             throw new NotFoundException();
         }

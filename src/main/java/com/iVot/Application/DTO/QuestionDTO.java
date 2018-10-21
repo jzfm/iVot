@@ -1,26 +1,25 @@
-/*package com.iVot.Application.DTO;
+package com.iVot.Application.DTO;
 
 import com.google.gson.annotations.Expose;
-import com.iVot.Domain.Option;
+import com.iVot.Domain.Question;
 import com.iVot.Domain.Topic;
 import com.iVot.Utilities.NotFoundException;
 
-public class OptionDTO {
+public class QuestionDTO {
 
     @Expose
     private Integer id;
     @Expose
     private String description;
-    @Expose
     private Topic topic;
 
-    public OptionDTO(Option option) throws NotFoundException {
-        if (option == null)
+    public QuestionDTO(Question question) throws NotFoundException {
+        if (question == null)
             throw new NotFoundException();
 
-        this.id = option.getId();
-        this.description = option.getDescription();
-        this.topic = option.getTopic();
+        this.id = question.getId();
+        this.description = question.getDescription();
+        this.topic = question.getTopic();
     }
 
     public Integer getId() {
@@ -37,4 +36,3 @@ public class OptionDTO {
         return topic;
     }
 }
-*/

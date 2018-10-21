@@ -1,4 +1,4 @@
-/*package com.iVot.API;
+package com.iVot.API;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -28,11 +28,11 @@ public class AnswerRestController {
     }
 
     @PostMapping(value = "/users/{userId}/events/{eventId}/topics/{topicId}/options/{optionId}/answer", produces = "application/json;charset=UTF-8")
-    public String vote(@PathVariable int userId, @PathVariable int eventId, @PathVariable int topicId, @PathVariable int optionId, @RequestBody JSONObject jObject) throws InvalidParamException, NotFoundException, AlreadyVoteException, EventIsNotAvailableException {
+    public String vote(@PathVariable int userId, @PathVariable int eventId, @PathVariable int topicId, @PathVariable int optionId, @RequestBody String jAnswer) throws InvalidParamException, NotFoundException, AlreadyVoteException, EventIsNotAvailableException {
 
-        String commentary = (String)jObject.get("commentary");
+        AnswerDTO voteToSummit = new Gson().fromJson(jAnswer, AnswerDTO.class);
 
-        AnswerDTO vote = answerController.createAnswer(commentary, eventId, topicId, optionId, userId);
+        AnswerDTO vote = answerController.createAnswer(voteToSummit, eventId, topicId, optionId, userId);
 
         return toJson(vote);
     }
@@ -45,4 +45,3 @@ public class AnswerRestController {
         return toJson(voteResults);
     }
 }
-*/

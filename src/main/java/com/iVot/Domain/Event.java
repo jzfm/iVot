@@ -52,6 +52,7 @@ public class Event {
         this.post = false;
         this.close = false;
         this.organization = organization;
+        this.eventDate = event.getEventDate();
     }
 
     public Integer getId() {

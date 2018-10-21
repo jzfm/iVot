@@ -77,7 +77,7 @@ public class EventRestController {
     }
 
     @PutMapping(value = "/organizations/{organizationId}/events/{eventId}/pdf", produces = "application/json;charset=UTF-8")
-    public String closeEvent(@PathVariable int eventId, @PathVariable int organizationId, @RequestBody String jEvent) throws NotFoundException, InvalidParamException {
+    public String uploadPdf(@PathVariable int eventId, @PathVariable int organizationId, @RequestBody String jEvent) throws NotFoundException, InvalidParamException {
 
         EventDTO eventToUpdatePdf = new Gson().fromJson(jEvent, EventDTO.class);
 
