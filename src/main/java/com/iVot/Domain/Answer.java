@@ -21,9 +21,9 @@ public class Answer {
     @ManyToOne(targetEntity = Participant.class)
     @JoinColumn(name = "participantId")
     private Participant participant;
-    @ManyToOne(targetEntity = Topic.class)
+    @ManyToOne(targetEntity = Poll.class)
     @JoinColumn(name = "topicId")
-    private Topic topic;
+    private Poll poll;
     @ManyToOne(targetEntity = Question.class)
     @JoinColumn(name = "questionId")
     private Question question;
@@ -31,14 +31,14 @@ public class Answer {
     public Answer(){}
 
     public Answer(String comment, Event event, Participant participant,
-    Topic topic, Question question) throws InvalidParamException {
+                  Poll poll, Question question) throws InvalidParamException {
         if (comment.equals("") || comment.matches("[$&+=|<>^*-]"))
             throw new InvalidParamException();
         if (event == null)
             throw new InvalidParamException();
         if (participant == null)
             throw new InvalidParamException();
-        if (topic == null)
+        if (poll == null)
             throw new InvalidParamException();
         if (question == null)
             throw new InvalidParamException();
@@ -47,7 +47,7 @@ public class Answer {
         //this.organization = event.getOrganization();
         this.event = event;
         this.participant = participant;
-        this.topic = topic;
+        this.poll = poll;
         this.question = question;
     }
 
@@ -91,12 +91,12 @@ public class Answer {
         this.participant = participant;
     }
 
-    public Topic getTopic() {
-        return topic;
+    public Poll getPoll() {
+        return poll;
     }
 
-    public void setTopic(Topic topic) {
-        this.topic = topic;
+    public void setPoll(Poll poll) {
+        this.poll = poll;
     }
 
     public Question getQuestion() {

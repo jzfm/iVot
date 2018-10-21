@@ -1,7 +1,6 @@
 package com.iVot.Persistence.Topic;
 
-import com.iVot.Domain.Topic;
-import com.iVot.Persistence.Organization.OrganizationRepository;
+import com.iVot.Domain.Poll;
 import com.iVot.Utilities.InvalidParamException;
 import com.iVot.Utilities.NotFoundException;
 import com.iVot.Persistence.Event.EventRepository;
@@ -11,20 +10,20 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 
 @Repository
-public class TopicRepository {
+public class PollRepository {
 
     @Autowired
-    private HelperTopicRepository repository;
+    private HelperPollRepository repository;
 
     @Autowired
     private EventRepository eventRepository;
 
-    public TopicRepository(){}
+    public PollRepository(){}
 
-    public void save(Topic topic) throws InvalidParamException {
-        if (topic == null)
+    public void save(Poll poll) throws InvalidParamException {
+        if (poll == null)
             throw new InvalidParamException();
-        repository.save(topic);
+        repository.save(poll);
     }
 
     public void removeTopicById(int topicId) throws NotFoundException, InvalidParamException {
@@ -53,21 +52,21 @@ public class TopicRepository {
         repository.deleteAllByEventId(eventId);
     }
 
-    public List<Topic> getAllTopicByEventIdAndOrganizationId(int eventId, int organizationId) throws InvalidParamException, NotFoundException {
+    public List<Poll> getAllTopicByEventIdAndOrganizationId(int eventId, int organizationId) throws InvalidParamException, NotFoundException {
         if (eventRepository.getEventByIdAndOrganizationId(eventId, organizationId).getId() == eventId)
             return repository.findAllByEventId(eventId);
         else
             throw new InvalidParamException();
     }
 
-    public List<Topic> getAllTopicByEventId(int eventId) throws InvalidParamException, NotFoundException {
+    public List<Poll> getAllTopicByEventId(int eventId) throws InvalidParamException, NotFoundException {
         if (eventId <= 0)
             throw new InvalidParamException();
         else
             return repository.findAllByEventId(eventId);
     }
 
-    public Topic getTopicById(int topicId) throws NotFoundException, InvalidParamException {
+    public Poll getTopicById(int topicId) throws NotFoundException, InvalidParamException {
         if (topicId <= 0)
             throw new InvalidParamException();
         if (repository.findById(topicId).isPresent()) {
@@ -77,7 +76,7 @@ public class TopicRepository {
         }
     }
 
-    public Topic getTopicByIdAndEventIdAndOrganizationId(int topicId, int eventId, int organizationId) throws InvalidParamException, NotFoundException {
+    public Poll getTopicByIdAndEventIdAndOrganizationId(int topicId, int eventId, int organizationId) throws InvalidParamException, NotFoundException {
         if (eventId <= 0 || topicId <= 0 || organizationId <= 0)
             throw new InvalidParamException();
         if (repository.existsById(topicId) && eventRepository.getEventByIdAndOrganizationId(eventId, organizationId).getId() == eventId) {
@@ -87,7 +86,7 @@ public class TopicRepository {
         }
     }
 
-    public Topic getTopicByIdAndEventId(int topicId, int eventId) throws InvalidParamException, NotFoundException {
+    public Poll getTopicByIdAndEventId(int topicId, int eventId) throws InvalidParamException, NotFoundException {
         if (eventId <= 0 || topicId <= 0)
             throw new InvalidParamException();
         if (repository.existsById(topicId) && eventRepository.eventExistById(eventId)) {

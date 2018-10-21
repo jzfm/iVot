@@ -8,13 +8,13 @@ import java.util.List;
 
 public interface HelperQuestionRepository extends CrudRepository<Question, Integer> {
     @Transactional
-    List<Question> findAllByTopic(int topicId);
+    List<Question> findAllByPollId(int topicId);
 
-    Question findByIdAndTopic(int optionId, int topicId);
-
-    @Transactional
-    void deleteByIdAndTopic(int optionId, int topicId);
+    Question findByIdAndPollId(int optionId, int topicId);
 
     @Transactional
-    void deleteAllByTopic(int topicId);
+    void deleteByIdAndPollId(int optionId, int topicId);
+
+    @Transactional
+    void deleteAllByPollId(int topicId);
 }

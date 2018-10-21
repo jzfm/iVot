@@ -12,20 +12,20 @@ public class Question {
     private Integer id;
     @Column(name = "description")
     private String description;
-    @ManyToOne(targetEntity = Topic.class)
-    @JoinColumn(name = "topicId")
-    private Topic topic;
+    @ManyToOne(targetEntity = Poll.class)
+    @JoinColumn(name = "pollId")
+    private Poll poll;
 
     public Question(){}
 
-    public Question(String description, Topic topic) throws InvalidParamException {
+    public Question(String description, Poll poll) throws InvalidParamException {
         if (description.equals("") || description.matches("[$&+=|<>^*-]"))
             throw new InvalidParamException();
-        if (topic == null)
+        if (poll == null)
             throw new InvalidParamException();
 
         this.description = description;
-        this.topic = topic;
+        this.poll = poll;
     }
 
     public Integer getId() {
@@ -44,11 +44,11 @@ public class Question {
         this.description = description;
     }
 
-    public Topic getTopic() {
-        return topic;
+    public Poll getPoll() {
+        return poll;
     }
 
-    public void setTopicId(Topic topic) {
-        this.topic = topic;
+    public void setTopicId(Poll poll) {
+        this.poll = poll;
     }
 }

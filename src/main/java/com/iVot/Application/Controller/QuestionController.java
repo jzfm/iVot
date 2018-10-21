@@ -2,10 +2,10 @@ package com.iVot.Application.Controller;
 
 import com.iVot.Application.DTO.QuestionDTO;
 import com.iVot.Domain.Question;
-import com.iVot.Domain.Topic;
+import com.iVot.Domain.Poll;
 import com.iVot.Persistence.Event.EventRepository;
 import com.iVot.Persistence.Question.QuestionRepository;
-import com.iVot.Persistence.Topic.TopicRepository;
+import com.iVot.Persistence.Topic.PollRepository;
 import com.iVot.Utilities.InvalidParamException;
 import com.iVot.Utilities.NotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,14 +21,14 @@ public class QuestionController {
     EventRepository eventRepository;
 
     @Autowired
-    TopicRepository topicRepository;
+    PollRepository pollRepository;
 
     @Autowired
     QuestionRepository questionRepository;
 
     public QuestionDTO createOption(int topicId, int eventId, int organizationId, QuestionDTO questionDTO) throws NotFoundException, InvalidParamException {
-        Topic topic = topicRepository.getTopicByIdAndEventIdAndOrganizationId(topicId, eventId, organizationId);
-        Question question = new Question(questionDTO.getDescription(), topic);
+        Poll poll = pollRepository.getTopicByIdAndEventIdAndOrganizationId(topicId, eventId, organizationId);
+        Question question = new Question(questionDTO.getDescription(), poll);
         questionRepository.save(question);
         return new QuestionDTO(question);
     }

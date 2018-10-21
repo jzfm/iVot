@@ -2,10 +2,10 @@ package com.iVot.Application.DTO;
 
 import com.google.gson.annotations.Expose;
 import com.iVot.Domain.Event;
-import com.iVot.Domain.Topic;
+import com.iVot.Domain.Poll;
 import com.iVot.Utilities.NotFoundException;
 
-public class TopicDTO {
+public class PollDTO {
 
     @Expose
     private Integer id;
@@ -13,13 +13,13 @@ public class TopicDTO {
     private String description;
     private Event event;
 
-    public TopicDTO(Topic topic) throws NotFoundException {
-        if (topic == null)
+    public PollDTO(Poll poll) throws NotFoundException {
+        if (poll == null)
             throw new NotFoundException();
 
-        this.id = topic.getId();
-        this.description = topic.getDescription();
-        this.event = topic.getEvent();
+        this.id = poll.getId();
+        this.description = poll.getDescription();
+        this.event = poll.getEvent();
     }
 
     public Integer getId() {

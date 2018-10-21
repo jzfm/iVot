@@ -44,6 +44,8 @@ public class Organization {
             throw new InvalidParamException();
         if (organization.getToken().equals("") || organization.getToken().matches("[$&+,:;=?@#|'<>.^*()%!-]"))
             throw new InvalidParamException();
+        if (organization.getAddress().equals("") || organization.getAddress().matches("[$&+,:;=?@#|'<>.^*()%!-]"))
+            throw new InvalidParamException();
 
         this.name = organization.getName();
         this.description = organization.getDescription();
@@ -51,6 +53,7 @@ public class Organization {
         //this.password = Encryptor.encryptPassword(organization.getPassword());
         this.icon = organization.getIcon();
         this.token = organization.getToken();
+        this.address = organization.getAddress();
     }
 
     /*public void checkPasswordIsCorrect(String password) throws InvalidParamException {

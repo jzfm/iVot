@@ -9,7 +9,7 @@ import com.iVot.Utilities.InvalidParamException;
 import com.iVot.Utilities.NotFoundException;
 import com.iVot.Application.DTO.AnswerDTO;
 import com.iVot.Persistence.Answers.AnswerRepository;
-import com.iVot.Persistence.Topic.TopicRepository;
+import com.iVot.Persistence.Topic.PollRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 
@@ -23,7 +23,7 @@ public class AnswerController {
     AnswerRepository answerRepository;
 
     @Autowired
-    TopicRepository topicRepository;
+    PollRepository pollRepository;
 
     @Autowired
     ParticipantRepository participantRepository;
@@ -35,12 +35,13 @@ public class AnswerController {
         Participant participant = participantRepository.getParticipantByUserIdAndEventId(userId, eventId);
         Event event = participant.getEvent();
         if (event.isPost() && !event.isClose()) {
-            Topic topic = topicRepository.getTopicByIdAndEventId(topicId, eventId);
+            Poll poll = pollRepository.getTopicByIdAndEventId(topicId, eventId);
             Question question = questionRepository.getOptionById(optionId);
             if (!participant.getEvent().getId().equals(event.getId()))
                 throw new InvalidParamException();
-            if (!answerRepository.existByTopicIdAndParticipantId(topic.getId(), participant.getId())) {
-                Answer answer = new Answer(answerDTO.getComment(), event, participant, topic, question);
+            if (!answerRepository.existByTopicIdAndParticipantId(poll.getId(), participant.getId())) {
+                Answer answer = new Answer(answerDTO.getComment(), event, participant, poll, question);
+                answerRepository.save(answer);
                 return new AnswerDTO(answer);
             } else {
                 throw new AlreadyVoteException();

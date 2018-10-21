@@ -9,7 +9,7 @@ import java.util.List;
 public interface HelperAnswerRepository extends CrudRepository<Answer, Integer> {
 
     @Transactional
-    List<Answer> findAllByTopicId(int topicId);
+    List<Answer> findAllByPollId(int topicId);
 
     @Transactional
     List<Answer> findAllByQuestionId(int optionId);
@@ -24,5 +24,5 @@ public interface HelperAnswerRepository extends CrudRepository<Answer, Integer> 
     void removeByIdAndQuestionId(int answerId, int optionId);
 
     @Transactional
-    boolean existsByTopicIdAndParticipantId(int topicId, int participantId);
+    boolean existsByPollIdAndParticipantId(int topicId, int participantId);
 }

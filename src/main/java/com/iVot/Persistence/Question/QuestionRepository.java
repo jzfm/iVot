@@ -4,7 +4,7 @@ import com.iVot.Domain.Question;
 import com.iVot.Persistence.Event.EventRepository;
 import com.iVot.Utilities.InvalidParamException;
 import com.iVot.Utilities.NotFoundException;
-import com.iVot.Persistence.Topic.TopicRepository;
+import com.iVot.Persistence.Topic.PollRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
@@ -17,7 +17,7 @@ public class QuestionRepository {
     private HelperQuestionRepository repository;
 
     @Autowired
-    private TopicRepository topicRepository;
+    private PollRepository pollRepository;
 
     @Autowired
     private EventRepository eventRepository;
@@ -43,8 +43,8 @@ public class QuestionRepository {
     public void removeOptionByIdAndTopicId(int optionId, int topicId) throws NotFoundException, InvalidParamException {
         if (optionId <= 0 || topicId <= 0)
             throw new InvalidParamException();
-        if (repository.existsById(optionId) && topicRepository.topicExistById(topicId)) {
-            repository.deleteByIdAndTopic(optionId, topicId);
+        if (repository.existsById(optionId) && pollRepository.topicExistById(topicId)) {
+            repository.deleteByIdAndPollId(optionId, topicId);
         } else {
             throw new NotFoundException();
         }
@@ -53,8 +53,8 @@ public class QuestionRepository {
     public void removeAllByTopicId(int topicId) throws InvalidParamException, NotFoundException {
         if (topicId <= 0)
             throw new InvalidParamException();
-        if (topicRepository.topicExistById(topicId)) {
-            repository.deleteAllByTopic(topicId);
+        if (pollRepository.topicExistById(topicId)) {
+            repository.deleteAllByPollId(topicId);
         }else{
             throw new NotFoundException();
         }
@@ -63,8 +63,8 @@ public class QuestionRepository {
     public List<Question> getAllOptionByTopicId(int topicId) throws InvalidParamException, NotFoundException {
         if (topicId <= 0)
             throw new InvalidParamException();
-        if (topicRepository.topicExistById(topicId)) {
-            return repository.findAllByTopic(topicId);
+        if (pollRepository.topicExistById(topicId)) {
+            return repository.findAllByPollId(topicId);
         }else{
             throw new NotFoundException();
         }
@@ -74,7 +74,7 @@ public class QuestionRepository {
         if (topicId <= 0)
             throw new InvalidParamException();
         //if (eventRepository.getEventByIdAndOrganizationId(eventId, organizationId).getId() == topicRepository.getTopicById(topicId).getEvent().getId())
-            return repository.findAllByTopic(topicId);
+            return repository.findAllByPollId(topicId);
         //else
             //throw new NotFoundException();
     }
@@ -93,8 +93,8 @@ public class QuestionRepository {
             throws InvalidParamException, NotFoundException {
         if (optionId <= 0 || topicId <= 0)
             throw new InvalidParamException();
-        if (eventRepository.getEventByIdAndOrganizationId(eventId, organization).getId().equals(topicRepository.getTopicById(topicId).getEvent().getId())) {
-            return repository.findByIdAndTopic(topicId, optionId);
+        if (eventRepository.getEventByIdAndOrganizationId(eventId, organization).getId().equals(pollRepository.getTopicById(topicId).getEvent().getId())) {
+            return repository.findByIdAndPollId(topicId, optionId);
         } else {
             throw new NotFoundException();
         }

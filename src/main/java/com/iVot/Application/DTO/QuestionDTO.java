@@ -2,7 +2,7 @@ package com.iVot.Application.DTO;
 
 import com.google.gson.annotations.Expose;
 import com.iVot.Domain.Question;
-import com.iVot.Domain.Topic;
+import com.iVot.Domain.Poll;
 import com.iVot.Utilities.NotFoundException;
 
 public class QuestionDTO {
@@ -11,7 +11,7 @@ public class QuestionDTO {
     private Integer id;
     @Expose
     private String description;
-    private Topic topic;
+    private Poll poll;
 
     public QuestionDTO(Question question) throws NotFoundException {
         if (question == null)
@@ -19,7 +19,7 @@ public class QuestionDTO {
 
         this.id = question.getId();
         this.description = question.getDescription();
-        this.topic = question.getTopic();
+        this.poll = question.getPoll();
     }
 
     public Integer getId() {
@@ -32,7 +32,7 @@ public class QuestionDTO {
         return description;
     }
 
-    public Topic getTopic() {
-        return topic;
+    public Poll getPoll() {
+        return poll;
     }
 }

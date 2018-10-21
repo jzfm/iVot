@@ -4,11 +4,11 @@ import com.iVot.Utilities.InvalidParamException;
 
 import javax.persistence.*;
 
-@Entity(name = "Topic")
-public class Topic {
+@Entity(name = "Poll")
+public class Poll {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
-    @Column(name = "topicId")
+    @Column(name = "pollId")
     private Integer id;
     @Column(name = "description")
     private String description;
@@ -16,9 +16,9 @@ public class Topic {
     @JoinColumn(name = "eventId")
     private Event event;
 
-    public Topic(){}
+    public Poll(){}
 
-    public Topic(String description, Event event) throws InvalidParamException {
+    public Poll(String description, Event event) throws InvalidParamException {
         if (description.equals("") || description.matches("[$&+=|<>^*-]"))
             throw new InvalidParamException();
         if (event == null)

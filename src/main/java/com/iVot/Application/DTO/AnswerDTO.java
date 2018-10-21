@@ -15,7 +15,7 @@ public class AnswerDTO {
     private Organization organization;
     private Event event;
     private Participant participant;
-    private Topic topic;
+    private Poll poll;
     private Question question;
     @Expose
     private String participantName, participantEmail, participantOrganization;
@@ -29,7 +29,7 @@ public class AnswerDTO {
         this.organization = answer.getOrganization();
         this.event = answer.getEvent();
         this.participant = answer.getParticipant();
-        this.topic = answer.getTopic();
+        this.poll = answer.getPoll();
         this.question = answer.getQuestion();
         this.participantName = participant.getUser().getName();
         this.participantEmail = participant.getUser().getEmail();
@@ -58,8 +58,8 @@ public class AnswerDTO {
         return participant;
     }
 
-    public Topic getTopic() {
-        return topic;
+    public Poll getPoll() {
+        return poll;
     }
 
     public Question getQuestion() {

@@ -8,7 +8,6 @@ import com.iVot.Utilities.AlreadyVoteException;
 import com.iVot.Utilities.EventIsNotAvailableException;
 import com.iVot.Utilities.InvalidParamException;
 import com.iVot.Utilities.NotFoundException;
-import org.json.simple.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 

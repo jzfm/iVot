@@ -5,7 +5,7 @@ import com.iVot.Persistence.Participant.ParticipantRepository;
 import com.iVot.Utilities.InvalidParamException;
 import com.iVot.Utilities.NotFoundException;
 import com.iVot.Persistence.Question.QuestionRepository;
-import com.iVot.Persistence.Topic.TopicRepository;
+import com.iVot.Persistence.Topic.PollRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
@@ -18,7 +18,7 @@ public class AnswerRepository {
     private HelperAnswerRepository repository;
 
     @Autowired
-    private TopicRepository topicRepository;
+    private PollRepository pollRepository;
 
     @Autowired
     private QuestionRepository questionRepository;
@@ -31,11 +31,7 @@ public class AnswerRepository {
     public void save(Answer answer) throws InvalidParamException {
         if (answer == null)
             throw new InvalidParamException();
-        if (repository.existsById(answer.getId())) {
-            throw new InvalidParamException();
-        } else {
-            repository.save(answer);
-        }
+        repository.save(answer);
     }
 
     public void removeAnswerIdAndOptionId(int answerId, int optionId) throws NotFoundException, InvalidParamException {
@@ -61,8 +57,8 @@ public class AnswerRepository {
     public List<Answer> getAllAnswerByTopicId(int topicId) throws InvalidParamException, NotFoundException {
         if (topicId <= 0)
             throw new InvalidParamException();
-        if (topicRepository.topicExistById(topicId)) {
-            return repository.findAllByTopicId(topicId);
+        if (pollRepository.topicExistById(topicId)) {
+            return repository.findAllByPollId(topicId);
         }else{
             throw new NotFoundException();
         }
@@ -91,8 +87,8 @@ public class AnswerRepository {
     public boolean existByTopicIdAndParticipantId(int topicId, int participantId) throws InvalidParamException, NotFoundException {
         if (topicId <= 0 || participantId <=0)
             throw new InvalidParamException();
-        if (topicRepository.topicExistById(topicId) && participantRepository.participantExistById(participantId)){
-            return repository.existsByTopicIdAndParticipantId(topicId, participantId);
+        if (pollRepository.topicExistById(topicId) && participantRepository.participantExistById(participantId)){
+            return repository.existsByPollIdAndParticipantId(topicId, participantId);
         }else{
             throw new NotFoundException();
         }
