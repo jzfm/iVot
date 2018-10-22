@@ -68,7 +68,7 @@ public class EventRestController {
         return toJson(eventToPost);
     }
 
-    @PutMapping(value = "/organizations/{organizationId}/events/{eventId}/close", produces = "application/json;charset=UTF-8")
+    @PutMapping(value = "/organizations/{organizationId}/events/{eventId}/post/close", produces = "application/json;charset=UTF-8")
     public String closeEvent(@PathVariable int eventId, @PathVariable int organizationId) throws NotFoundException, InvalidParamException {
 
         EventDTO eventToClose = eventController.closeEvent(eventId, organizationId);
@@ -76,7 +76,7 @@ public class EventRestController {
         return toJson(eventToClose);
     }
 
-    @PutMapping(value = "/organizations/{organizationId}/events/{eventId}/pdf", produces = "application/json;charset=UTF-8")
+    @PutMapping(value = "/organizations/{organizationId}/events/{eventId}/post/close/pdf", produces = "application/json;charset=UTF-8")
     public String uploadPdf(@PathVariable int eventId, @PathVariable int organizationId, @RequestBody String jEvent) throws NotFoundException, InvalidParamException {
 
         EventDTO eventToUpdatePdf = new Gson().fromJson(jEvent, EventDTO.class);
