@@ -14,6 +14,7 @@ public class EventDTO {
     @Expose
     private String name, description, icon, pdfFile, eventDate;
     private Calendar date;
+    @Expose
     private boolean post, close;
     private Organization organization;
 
