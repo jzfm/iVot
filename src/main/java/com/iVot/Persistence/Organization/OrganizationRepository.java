@@ -1,6 +1,7 @@
 package com.iVot.Persistence.Organization;
 
 import com.iVot.Domain.Organization;
+import com.iVot.Domain.User;
 import com.iVot.Utilities.InvalidParamException;
 import com.iVot.Utilities.NotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,6 +25,12 @@ public class OrganizationRepository {
         }else{
             repository.save(organization);
         }
+    }
+
+    public void update (Organization organization) throws InvalidParamException {
+        if (organization == null)
+            throw new InvalidParamException();
+        repository.save(organization);
     }
 
     public void removeOrganization(int organizationId) throws NotFoundException, InvalidParamException {

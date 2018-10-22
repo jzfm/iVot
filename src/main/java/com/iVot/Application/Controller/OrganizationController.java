@@ -63,8 +63,7 @@ public class OrganizationController {
             organization.setPassword(organizationToUpdate.getPassword());*/
         if (!organizationToUpdate.getAddress().equals(""))
             organization.setAddress(organizationToUpdate.getAddress());
-        removeOrganizationById(organizationId);
-        organizationRepository.save(organization);
+        organizationRepository.update(organization);
         return new OrganizationDTO(organization);
     }
 

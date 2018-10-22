@@ -65,6 +65,7 @@ public class QuestionController {
         Question question = questionRepository.getOptionByIdAndTopicId(optionId, topicId, eventId, organizationId);
         if (!optionToUpdate.getDescription().equals(""))
             question.setDescription(optionToUpdate.getDescription());
+        questionRepository.save(question);
         return new QuestionDTO(question);
     }
 

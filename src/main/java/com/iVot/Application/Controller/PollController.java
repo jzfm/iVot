@@ -72,6 +72,7 @@ public class PollController {
         Poll poll = pollRepository.getTopicByIdAndEventIdAndOrganizationId(topicId, eventId, organizationId);
         if (!topicToUpdate.getDescription().equals(""))
             poll.setDescription(topicToUpdate.getDescription());
+        pollRepository.save(poll);
         return new PollDTO(poll);
     }
     /*

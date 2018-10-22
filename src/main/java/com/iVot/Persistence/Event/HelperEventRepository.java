@@ -8,7 +8,7 @@ import java.util.List;
 
 public interface HelperEventRepository extends CrudRepository<Event,Integer> {
     @Transactional
-    List<Event> findAllByOrganizationId(int organizationId);
+    List<Event> findAllByOrganizationIdOrderByDateDesc(int organizationId);
 
     @Transactional
     void deleteAllByOrganizationId(int organizationId);

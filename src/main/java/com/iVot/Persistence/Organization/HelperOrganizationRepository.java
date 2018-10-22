@@ -4,6 +4,8 @@ import com.iVot.Domain.Organization;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
+
 interface HelperOrganizationRepository extends CrudRepository<Organization, Integer> {
 
     @Transactional
@@ -13,5 +15,4 @@ interface HelperOrganizationRepository extends CrudRepository<Organization, Inte
 
     @Transactional
     Organization findByEmail(String email);
-
 }

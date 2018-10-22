@@ -30,6 +30,12 @@ public class UserRepository {
         }
     }
 
+    public void update (User user) throws InvalidParamException {
+        if (user == null)
+            throw new InvalidParamException();
+        repository.save(user);
+    }
+
     public void removeUser(int userId) throws NotFoundException, InvalidParamException {
         if (userId == 0)
             throw new InvalidParamException();
@@ -60,7 +66,7 @@ public class UserRepository {
         if (organizationId <= 0)
             throw new InvalidParamException();
         if (organizationRepository.organizationExistById(organizationId)){
-            return repository.findAllByorganization_id(organizationId);
+            return repository.findAllByorganization_idOrderByName(organizationId);
         }else{
             throw new NotFoundException();
         }
@@ -70,7 +76,7 @@ public class UserRepository {
         if (organizationId <= 0)
             throw new InvalidParamException();
         if (organizationRepository.organizationExistById(organizationId)) {
-            return repository.findAllByorganization_id(organizationId);
+            return repository.findAllByorganization_idOrderByName(organizationId);
         }else{
             throw new NotFoundException();
         }

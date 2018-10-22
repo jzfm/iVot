@@ -60,7 +60,7 @@ public class EventRepository {
         if (organizationId <= 0)
             throw new InvalidParamException();
         if (organizationRepository.organizationExistById(organizationId)) {
-            return repository.findAllByOrganizationId(organizationId);
+            return repository.findAllByOrganizationIdOrderByDateDesc(organizationId);
         }else{
             throw new NotFoundException();
         }

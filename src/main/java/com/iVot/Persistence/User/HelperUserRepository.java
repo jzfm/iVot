@@ -20,5 +20,5 @@ interface HelperUserRepository extends CrudRepository<User,Integer> {
     User findByEmail (String email);
 
     @Transactional
-    List<User> findAllByorganization_id(int organizationId);
+    List<User> findAllByorganization_idOrderByName(int organizationId);
 }
