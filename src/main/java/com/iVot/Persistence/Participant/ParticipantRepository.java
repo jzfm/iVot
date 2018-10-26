@@ -27,7 +27,7 @@ public class ParticipantRepository {
     public void save(Participant participant) throws InvalidParamException {
         if (participant == null)
             throw new InvalidParamException();
-        if (repository.existsByUserEmail(participant.getUser().getEmail()))
+        if (repository.existsByEventIdAndUserId(participant.getEvent().getId(), participant.getUser().getId()))
             throw new InvalidParamException();
         repository.save(participant);
     }

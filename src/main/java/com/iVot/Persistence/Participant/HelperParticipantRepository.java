@@ -24,5 +24,8 @@ public interface HelperParticipantRepository extends CrudRepository<Participant,
     boolean existsByUserEmail(String email);
 
     @Transactional
+    boolean existsByEventIdAndUserId(int eventId, int userId);
+
+    @Transactional
     void deleteAllByEventId(int eventId);
 }
